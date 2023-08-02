@@ -1,19 +1,19 @@
 # Global-Chat
 A Fullstack Global Chat App made with Flutter &amp; Spring Boot
 
-Global Chat App
+![docs_banner](https://github.com/riskiilyas/Global-Chat/assets/71499142/0c7c1da6-b7b7-4be7-8c87-bc3495232217)
 
 Features:
 - Login
     - Email/Username
     - Password
 
-- Regis
+- Register
     - Choose Avatar
     - Username
     - Email
     - Password
-    - Conf Password
+    - Confirmation Password
 
 - Forgot Password
     - Email
@@ -34,11 +34,16 @@ Features:
     - Lang
     - Edit Profile
     - Logout
+ 
+- Shop
+    - Avatars
+    - Sticker Items
       
 - Profile
     - Avatar
     - Level
     - XP
+    - Coins
     - Username
     - Email
 
