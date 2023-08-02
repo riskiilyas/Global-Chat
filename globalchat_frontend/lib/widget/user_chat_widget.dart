@@ -28,6 +28,7 @@ class UserChatWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Constants.COLOR_TEXT_BACKGROUND),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [

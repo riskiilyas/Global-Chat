@@ -26,6 +26,7 @@ class MeChatWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: Constants.COLOR_TEXT_BACKGROUND),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Row(
                 children: [
@@ -56,6 +57,7 @@ class MeChatWidget extends StatelessWidget {
               ),
               Text(
                 msg,
+                textAlign: TextAlign.end,
                 maxLines: 10,
               ),
             ],

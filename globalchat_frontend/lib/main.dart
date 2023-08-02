@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   Widget page = const WelcomeScreen();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      home: MaterialApp(
+    return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Global Chat',
           theme: ThemeData(
             primarySwatch: Colors.green,
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             splashTransition: SplashTransition.slideTransition,
             pageTransitionType: PageTransitionType.bottomToTop,
             nextScreen: const WelcomeScreen(),
-          )),
+          ),
     );
   }
 }

@@ -10,8 +10,12 @@ class ProfilPage extends StatefulWidget {
   State<ProfilPage> createState() => _ProfilPageState();
 }
 
-class _ProfilPageState extends State<ProfilPage> {
+class _ProfilPageState extends State<ProfilPage>
+    with SingleTickerProviderStateMixin {
   String name = "", username = "", email = "", profileUrl = "";
+  int tab = 0;
+  List<GridView> pages = [];
+  late TabController tabController;
 
   // void init(BuildContext context) async {
   //   context.watch<PrefNotifier>();
@@ -27,147 +31,191 @@ class _ProfilPageState extends State<ProfilPage> {
     return SafeArea(
       child: Column(
         children: [
-          Expanded(
-            child: ListView(
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                Card(
-                  elevation: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: SizedBox(
-                              width: 80,
-                              child: Image.network(
-                                profileUrl,
-                                fit: BoxFit.fill,
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  }
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                      loadingProgress.expectedTotalBytes !=
-                                          null
-                                          ? loadingProgress
-                                          .cumulativeBytesLoaded /
-                                          loadingProgress
-                                              .expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                name,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: Constants.COLOR_TITLE,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                '$username - $email',
-                                style: const TextStyle(
-                                    color: Constants.COLOR_TEXT,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    onTap: () => {
-                                      // Constants.goto(
-                                      //     context, const EditProfileScreen())
-                                    },
-                                    child: const Text(
-                                      "Edit Profil",
-                                      style: TextStyle(
-                                        color: Constants.COLOR_MAIN,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
+          Card(
+            elevation: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                      width: 80,
+                      child: Image.asset(
+                        "assets/avatars/2.png",
+                        fit: BoxFit.fill,
+                      )),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    "riski1351",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Constants.COLOR_TITLE,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const Text(
+                    'riskiilyas@gmail.com',
+                    style: TextStyle(
+                        color: Constants.COLOR_TEXT,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Lvl. 14",
+                        style: TextStyle(
+                            color: Constants.COLOR_TEXT,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "19023",
+                            style: TextStyle(color: Constants.COLOR_TEXT),
                           ),
-                        )
-                      ],
-                    ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          CircleAvatar(
+                            maxRadius: 12,
+                            foregroundImage: Image.asset(
+                              "assets/coin.png",
+                              width: 4,
+                            ).image,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ),
-                Card(
-                  elevation: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        // ProfileItem(
-                        //     title: "Proyek Saya",
-                        //     icon: Icons.location_city,
-                        //     onPressed: () => {}),
-                        // const SizedBox(
-                        //   height: 12,
-                        // ),
-                        // ProfileItem(
-                        //     title: "Wishllist Saya",
-                        //     icon: Icons.favorite,
-                        //     onPressed: () =>
-                        //     {Get.to(() => const WishListScreen())}),
-                        // const SizedBox(
-                        //   height: 12,
-                        // ),
-                        // ProfileItem(
-                        //     title: "Cari Mandor",
-                        //     icon: Icons.search,
-                        //     onPressed: () => {}),
-                      ],
-                    ),
+                  const SizedBox(
+                    height: 12,
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                CustomButton(
-                    text: "Log Out",
-                    textColor: Colors.white,
-                    buttonColor: Constants.COLOR_MAIN,
-                    onPressed: () async {}
-                    )
-              ],
+                  const Text("Exp: 36/100"),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const LinearProgressIndicator(
+                    value: .36,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
             ),
-          )
+          ),
+          Expanded(
+            child: Card(
+              elevation: 1,
+              child: Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Constants.COLOR_MAIN,
+                      height: 50,
+                      child: TabBar(
+                        onTap: (_) {
+                          if (_ != tab) {
+                            setState(() {
+                              tab = _;
+                            });
+                          }
+                        },
+                        indicatorColor: Colors.green[100],
+                        controller: tabController,
+                        unselectedLabelColor: Colors.white60,
+                        labelColor: Colors.white,
+                        tabs: const [
+                          Tab(
+                            icon: Icon(
+                              Icons.account_circle,
+                              color: Colors.white,
+                            ),
+                            text: "Avatars",
+                          ),
+                          Tab(
+                            icon: Icon(
+                              Icons.diamond,
+                              color: Colors.white,
+                            ),
+                            text: "Items",
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: pages[tab]),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, vsync: this);
+    pages.add(GridView.builder(
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+      itemCount: 27,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.pop(context, index + 1);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: CircleAvatar(
+              foregroundImage:
+                  Image.asset("assets/avatars/${index + 1}.png").image,
+            ),
+          ),
+        );
+      },
+    ));
+    pages.add(GridView.builder(
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.pop(context, index + 1);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: CircleAvatar(
+              foregroundImage:
+                  Image.asset("assets/avatars/${index + 1}.png").image,
+            ),
+          ),
+        );
+      },
+    ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pages.clear();
   }
 }
