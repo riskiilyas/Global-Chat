@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../util/constants.dart';
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<LoginScreen> {
                 textColor: Colors.white,
                 buttonColor: Constants.COLOR_MAIN,
                 onPressed: () => {
-                  // Constants.goto(context, HomeScreen())
+                  Constants.goto(context, HomeScreen())
                       // context
                       //     .read<LoginNotifier>()
                       //     .fetch(usernameOrEmail, password)

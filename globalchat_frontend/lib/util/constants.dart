@@ -9,6 +9,7 @@ class Constants {
   static const COLOR_HINT_TEXT = Color(0xFF7B9691);
   static const COLOR_TITLE = Color(0xFF02231C);
   static const COLOR_TEXT = Color(0xFF273834);
+  static const COLOR_TEXT_BACKGROUND = Color(0x32273834);
 
   static const PREF_UID = "uid";
   static const PREF_NAME = "name";
