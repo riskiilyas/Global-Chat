@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/screen/home_pages/chat_page.dart';
@@ -17,6 +19,7 @@ class _MyHomePageState extends State<HomeScreen> {
   int _index = 0;
   List<Widget> pages = [];
   List<AppBar> appbars = [];
+  Random random = Random(4664);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _MyHomePageState extends State<HomeScreen> {
         rightCornerRadius: 32,
         gapLocation: GapLocation.none,
         icons: const [
-          Icons.home,
+          Icons.public,
           Icons.shopping_cart,
           Icons.account_circle,
         ],
@@ -68,6 +71,7 @@ class _MyHomePageState extends State<HomeScreen> {
               color: Colors.white,
             ),
             onPressed: () {
+              showOnlineUsers(context);
               // Get.to(() => const WishListScreen());
             }),
         PopupMenuButton(
@@ -121,10 +125,15 @@ class _MyHomePageState extends State<HomeScreen> {
         Row(
           children: [
             const Text("19023"),
-            SizedBox(width: 4,),
+            SizedBox(
+              width: 4,
+            ),
             CircleAvatar(
               maxRadius: 12,
-              foregroundImage: Image.asset("assets/coin.png",width: 4,).image,
+              foregroundImage: Image.asset(
+                "assets/coin.png",
+                width: 4,
+              ).image,
             ),
           ],
         ),
@@ -177,8 +186,8 @@ class _MyHomePageState extends State<HomeScreen> {
       ),
       actions: <Widget>[
         PopupMenuButton(
-          // add icon, by default "3 dot" icon
-          // icon: Icon(Icons.book)
+            // add icon, by default "3 dot" icon
+            // icon: Icon(Icons.book)
             icon: const Icon(
               Icons.settings,
               color: Colors.white,
@@ -221,5 +230,107 @@ class _MyHomePageState extends State<HomeScreen> {
     super.dispose();
     pages.clear();
     appbars.clear();
+  }
+
+  Future<String?> showOnlineUsers(BuildContext context) async {
+    return showDialog<String?>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Material(
+          color: Colors.transparent,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                height: 400,
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Online Users",
+                        style: TextStyle(
+                            color: Constants.COLOR_TEXT,
+                            fontSize: 16,
+                            fontFamily: 'GrilledCheese',
+                            fontWeight: FontWeight.normal),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          child: const Icon(
+                            Icons.cancel_outlined,
+                            size: 32,
+                            color: Constants.COLOR_MAIN_TEXT,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: ListView(
+                          children: List.generate(
+                              10,
+                              (index) => Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4),
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                foregroundImage: Image.asset(
+                                                        'assets/avatars/${index + 1}.png')
+                                                    .image,
+                                              ),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Expanded(
+                                                  child: Text(
+                                                      "User${random.nextInt(10000)}")),
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    width: 20.0,
+                                                    height: 20.0,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color:
+                                                          Constants.COLOR_MAIN,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "online",
+                                                    style: TextStyle(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .none),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Divider()
+                                    ],
+                                  )))),
+                ]),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
