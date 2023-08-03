@@ -1,4 +1,4 @@
-package com.riskee.globalchat.model
+package com.riskee.globalchat.model.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
@@ -7,7 +7,6 @@ import jakarta.persistence.*
 @Table(name = User.TABLE_NAME)
 data class User(
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = USERNAME)
     @JsonProperty(USERNAME)
     val username: String,
@@ -19,6 +18,10 @@ data class User(
     @Column(name = PASSWORD)
     @JsonProperty(PASSWORD)
     val password: String,
+
+    @Column(name = AVATAR_ID)
+    @JsonProperty(AVATAR_ID)
+    val avatarId: Int = 2,
 
     @Column(name = LEVEL)
     @JsonProperty(LEVEL)
@@ -47,6 +50,7 @@ data class User(
         const val USERNAME = "username"
         const val EMAIL = "email"
         const val PASSWORD = "password"
+        const val AVATAR_ID = "avatar_id"
         const val LEVEL = "level"
         const val EXP = "exp"
         const val COINS = "coins"

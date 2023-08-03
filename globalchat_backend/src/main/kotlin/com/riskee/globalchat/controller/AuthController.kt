@@ -1,34 +1,30 @@
 package com.riskee.globalchat.controller
 
-import com.riskee.globalchat.repo.UserRepository
-import com.riskee.globalchat.utill.Validators
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.riskee.globalchat.datasource.UserRepository
+import com.riskee.globalchat.model.dto.User
+import com.riskee.globalchat.model.request.RegisterRequest
+import com.riskee.globalchat.model.response.ResponseModelSingle
+import com.riskee.globalchat.service.AuthService
+import com.riskee.globalchat.utill.ApiExceptions
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/auth")
-class AuthController {
-
-    @Autowired
-    lateinit var repository: UserRepository
+class AuthController(
+    private val authService: AuthService
+) {
 
     @PostMapping("/register")
     fun register(
-        @RequestBody username: String,
-        @RequestBody email: String,
-        @RequestBody password: String,
-        @RequestBody confirmationPassword: String,
-        ) {
+        @RequestBody body: RegisterRequest
+    ) = ResponseModelSingle(200, "success", authService.register(body))
 
-        val isEmailValid = Validators.validateEmail(email)
-        if (!isEmailValid) {
-
-        }
-
-        val isPasswordValid = Validators
-
+    @ExceptionHandler(ApiExceptions::class)
+    fun handleBadRequest(e: ApiExceptions): ResponseEntity<ResponseModelSingle<User?>> {
+        return ResponseEntity(
+            ResponseModelSingle(e.status.value(), e.errorMessage, null),
+            e.status
+        )
     }
 }
