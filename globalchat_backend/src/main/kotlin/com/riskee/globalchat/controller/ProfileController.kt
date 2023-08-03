@@ -2,9 +2,6 @@ package com.riskee.globalchat.controller
 
 import com.riskee.globalchat.model.ResponseModelSingle
 import com.riskee.globalchat.model.dto.User
-import com.riskee.globalchat.model.request.LoginRequest
-import com.riskee.globalchat.model.request.RegisterRequest
-import com.riskee.globalchat.service.AuthService
 import com.riskee.globalchat.service.ProfileService
 import com.riskee.globalchat.utill.ApiExceptions
 import org.springframework.http.ResponseEntity
