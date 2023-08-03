@@ -3,6 +3,7 @@ import 'package:globalchat_flutter/screen/login_screen.dart';
 import 'package:globalchat_flutter/screen/register_screen.dart';
 
 import '../util/constants.dart';
+import '../util/routes.dart';
 import '../widget/custom_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -46,8 +47,9 @@ class _MyHomePageState extends State<WelcomeScreen> {
                               textColor: Colors.white,
                               buttonColor: Constants.COLOR_MAIN_TEXT,
                               onPressed: () => {
-                                Constants.goto(context, LoginScreen())
-                              }),
+                                    Navigator.of(context)
+                                        .pushNamed(Routes.LOGIN)
+                                  }),
                           const SizedBox(
                             height: 12,
                           ),
@@ -57,8 +59,8 @@ class _MyHomePageState extends State<WelcomeScreen> {
                               textColor: Constants.COLOR_MAIN,
                               buttonColor: Colors.white,
                               onPressed: () => {
-                                Constants.goto(context, RegisterScreen())
-                              }),
+                                Navigator.of(context)
+                                    .pushNamed(Routes.REGISTER)                              }),
                           const SizedBox(
                             height: 12,
                           ),

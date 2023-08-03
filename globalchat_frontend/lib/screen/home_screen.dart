@@ -244,7 +244,7 @@ class _MyHomePageState extends State<HomeScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 height: 400,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: Colors.white),

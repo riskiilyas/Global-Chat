@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
+import '../util/routes.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
@@ -122,8 +123,8 @@ class _MyHomePageState extends State<LoginScreen> {
                 textColor: Colors.white,
                 buttonColor: Constants.COLOR_MAIN,
                 onPressed: () => {
-                  Constants.goto(context, HomeScreen())
-                      // context
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(Routes.HOME, (_)=>false)                      // context
                       //     .read<LoginNotifier>()
                       //     .fetch(usernameOrEmail, password)
                     }),
@@ -139,6 +140,8 @@ class _MyHomePageState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () => {
+                    Navigator.of(context)
+                        .pushReplacementNamed(Routes.REGISTER)
                     // Constants.goto(RegisterScreen(blocContext: widget.blocContext,))
                   },
                   child: const Text(
