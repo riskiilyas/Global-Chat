@@ -14,4 +14,9 @@ sealed class ApiExceptions(val errorMessage: String, val status: HttpStatus) : E
 
     class UsernameAlreadyExistException : ApiExceptions("Username already Exist!", HttpStatus.BAD_REQUEST)
 
+    class EmailAlreadyRegisteredException : ApiExceptions("Email already registered!", HttpStatus.BAD_REQUEST)
+
+    class UserNotFoundException : ApiExceptions("User not found!", HttpStatus.NOT_FOUND)
+
+    class InvalidLoginException : ApiExceptions("Invalid Login data!", HttpStatus.BAD_REQUEST)
 }
