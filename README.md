@@ -1,4 +1,4 @@
-# Global-Chat
+# Global-Chat (Under Development ⚒)
 A Fullstack Global Chat App made with Flutter &amp; Spring Boot
 
 ![docs_banner](https://github.com/riskiilyas/Global-Chat/assets/71499142/746536a3-ead1-4de9-a467-67b5274fd1d5)
@@ -52,8 +52,9 @@ Features:
     - Username
     - Password
 
----
+#
 
+```
 MIT License
 
 Copyright (c) 2023 Riski Ilyas
@@ -75,3 +76,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
