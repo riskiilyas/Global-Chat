@@ -22,7 +22,7 @@ class SocketIOController(
         socketIOServer.addConnectListener(::onConnect)
         socketIOServer.addDisconnectListener(::onDisconnect)
         socketIOServer.addEventListener(Constants.MESSAGE_EVENT, String::class.java, ::onSend)
-
+        socketIOServer.addEventListener(Constants.JOIN_EVENT, String::class.java, ::onJoin)
     }
 
     override fun onConnect(client: SocketIOClient?) {
@@ -30,14 +30,27 @@ class SocketIOController(
             socketIOServer.broadcastOperations.sendEvent(
                 Constants.JOIN_EVENT,
                 client,
-                client.get("user_join") ?: "User Unknown"
+                client.get("user_join") ?: client.sessionId.toString()
             )
         }
         client!!.sendEvent(Constants.SUCCESS_EVENT)
     }
 
     override fun onDisconnect(client: SocketIOClient?) {
-        println("A User Disconnected!")
+        socketIOServer.broadcastOperations.sendEvent(
+            Constants.JOIN_EVENT,
+            client,
+            "DC: " + client?.sessionId.toString()
+        )
+    }
+
+    fun onJoin(client: SocketIOClient, data: String, ackSender: AckRequest) {
+        socketIOServer.broadcastOperations.sendEvent(
+            Constants.JOIN_EVENT,
+            client,
+            data
+        )
+        ackSender.sendAckData("Message Sent!")
     }
 
     fun onSend(client: SocketIOClient, data: String, ackSender: AckRequest) {
