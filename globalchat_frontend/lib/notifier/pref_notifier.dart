@@ -31,7 +31,7 @@ class PrefNotifier with ChangeNotifier {
     _username = _pref!.getString(Constants.PREF_USERNAME) ?? "";
     _email = _pref!.getString(Constants.PREF_EMAIL) ?? "";
     _password = _pref!.getString(Constants.PREF_PASSWORD) ?? "";
-    _avatarId = _pref!.getInt(Constants.PREF_AVATAR_ID) ?? 1;
+    _avatarId = _pref!.getInt(Constants.PREF_AVATAR_ID) ?? 2;
     _avatars = _pref!.getString(Constants.PREF_AVATARS) ?? "";
     _items = _pref!.getString(Constants.PREF_ITEMS) ?? "";
     _token = _pref!.getString(Constants.PREF_TOKEN) ?? "";
@@ -45,7 +45,8 @@ class PrefNotifier with ChangeNotifier {
       String password,
       int avatarId,
       String avatars,
-      String items
+      String items,
+      String token
       ) async {
     await _setUsername(username);
     await _setEmail(email);
@@ -56,6 +57,11 @@ class PrefNotifier with ChangeNotifier {
     await _setToken(token);
     _status = FetchStatus.SUCCESS;
     return;
+  }
+
+  Future<void> clearUser() async {
+    await _pref!.clear();
+    await init();
   }
 
   Future<void> _setUsername(String username) async {

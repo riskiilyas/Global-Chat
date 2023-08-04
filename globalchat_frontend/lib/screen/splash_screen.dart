@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:provider/provider.dart';
 
 import '../util/constants.dart';
 import '../util/routes.dart';
@@ -15,13 +18,15 @@ class SplashScreen extends StatefulWidget {
 
 class _MyHomePageState extends State<SplashScreen> {
   void checkLoggedIn() async {
-    var prefs = ServiceLocator.prefs;
-    prefs.then((value) {
-      if (value.getString(Constants.PREF_TOKEN) != null) {
-        Navigator.pushReplacementNamed(context, Routes.HOME);
-      } else {
-        Navigator.pushReplacementNamed(context, Routes.WELCOME);
-      }
+    context.read<PrefNotifier>().init().then((value) {
+      var token = context.read<PrefNotifier>().token;
+      Future.delayed(const Duration(seconds: 2), () {
+        if (token.isNotEmpty) {
+          Navigator.pushReplacementNamed(context, Routes.HOME);
+        } else {
+          Navigator.pushReplacementNamed(context, Routes.WELCOME);
+        }
+      });
     });
   }
 

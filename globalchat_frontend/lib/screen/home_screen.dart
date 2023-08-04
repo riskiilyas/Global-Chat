@@ -27,6 +27,10 @@ class _MyHomePageState extends State<HomeScreen> {
       backgroundColor: Constants.COLOR_BACKGROUND,
       appBar: appbars[_index],
       body: pages[_index],
+      floatingActionButton: _index==1? FloatingActionButton(
+        backgroundColor: Constants.COLOR_MAIN,
+          onPressed: (){},
+        child: const Icon(Icons.message_outlined)) : null,
       bottomNavigationBar: AnimatedBottomNavigationBar(
         activeColor: Colors.white,
         inactiveColor: Constants.COLOR_BACKGROUND,
@@ -264,12 +268,10 @@ class _MyHomePageState extends State<HomeScreen> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Container(
-                          child: const Icon(
-                            Icons.cancel_outlined,
-                            size: 32,
-                            color: Constants.COLOR_MAIN_TEXT,
-                          ),
+                        child: const Icon(
+                          Icons.cancel_outlined,
+                          size: 32,
+                          color: Constants.COLOR_MAIN_TEXT,
                         ),
                       ),
                     ],
@@ -283,7 +285,7 @@ class _MyHomePageState extends State<HomeScreen> {
                                       InkWell(
                                         onTap: () {},
                                         child: Padding(
-                                          padding: EdgeInsets.all(4),
+                                          padding: const EdgeInsets.all(4),
                                           child: Row(
                                             children: [
                                               CircleAvatar(
@@ -291,7 +293,7 @@ class _MyHomePageState extends State<HomeScreen> {
                                                         'assets/avatars/${index + 1}.png')
                                                     .image,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 8,
                                               ),
                                               Expanded(
@@ -309,7 +311,7 @@ class _MyHomePageState extends State<HomeScreen> {
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     "online",
                                                     style: TextStyle(
                                                         decoration:
