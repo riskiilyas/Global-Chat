@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../notifier/register_notifier.dart';
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
@@ -16,7 +17,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<RegisterScreen> {
-  String fullname = "";
   String username = "";
   String email = "";
   String password = "";
@@ -24,24 +24,24 @@ class _MyHomePageState extends State<RegisterScreen> {
   FetchStatus status = FetchStatus.INITIAL;
   int avatar = 2;
 
-  // void init() async {
-  //   context.watch<RegisterNotifier>();
-  //   status = context.read<RegisterNotifier>().status;
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     if (status == FetchStatus.SUCCESS) {
-  //       context.read<RegisterNotifier>().init();
-  //       Constants.showSnackbar(context, "Successfully Register!");
-  //       Navigator.pop(context);
-  //     } else if (status == FetchStatus.ERROR) {
-  //       context.read<RegisterNotifier>().init();
-  //       Constants.showSnackbar(context,
-  //           "Failed to Register! ${context.read<RegisterNotifier>().error}");
-  //     }
-  //   });
-  // }
+  void init() async {
+    context.watch<RegisterNotifier>();
+    status = context.read<RegisterNotifier>().status;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (status == FetchStatus.SUCCESS) {
+        context.read<RegisterNotifier>().init();
+        Constants.showSnackbar(context, "Successfully Registered!");
+        Navigator.pushReplacementNamed(context, Routes.WELCOME);
+      } else if (status == FetchStatus.ERROR) {
+        context.read<RegisterNotifier>().init();
+        Constants.showSnackbar(context, context.read<RegisterNotifier>().error);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Scaffold(
       body: SafeArea(
           child: ListView(
@@ -62,7 +62,9 @@ class _MyHomePageState extends State<RegisterScreen> {
                           color: Constants.COLOR_MAIN),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: const Icon(
                         Icons.arrow_back,
                         color: Constants.COLOR_MAIN,
@@ -85,20 +87,32 @@ class _MyHomePageState extends State<RegisterScreen> {
                 ),
                 Center(
                   child: InkWell(
-                    onTap: (){Constants.showAvatarPicker(context).then((value) {
-                      if(value!=null) {
-                        setState(() {
-                          avatar=value;
-                        });
-                      }
-                    });},
+                    onTap: () {
+                      Constants.showAvatarPicker(context).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            avatar = value;
+                          });
+                        }
+                      });
+                    },
                     child: Stack(
                       children: [
                         CircleAvatar(
-                          foregroundImage: Image.asset("assets/avatars/${avatar}.png",).image,
+                          foregroundImage: Image.asset(
+                            "assets/avatars/${avatar}.png",
+                          ).image,
                           maxRadius: 80,
                         ),
-                        const Positioned(child: Icon(Icons.image, size: 32,color: Constants.COLOR_MAIN_TEXT,), bottom: 0, right: 0,)
+                        const Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.image,
+                            size: 32,
+                            color: Constants.COLOR_MAIN_TEXT,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -140,19 +154,24 @@ class _MyHomePageState extends State<RegisterScreen> {
                 ),
                 status != FetchStatus.LOADING && status != FetchStatus.SUCCESS
                     ? CustomButton(
-                    text: "DAFTAR",
-                    textColor: Colors.white,
-                    buttonColor: Constants.COLOR_MAIN,
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil(Routes.WELCOME, (_)=>false);
-                      // context.read<RegisterNotifier>().fetch(fullname,
-                      //     username, email, password, confirmPassword);
-                    })
+                        text: "DAFTAR",
+                        textColor: Colors.white,
+                        buttonColor: Constants.COLOR_MAIN,
+                        onPressed: () {
+                          if (checkForm()) {
+                            context.read<RegisterNotifier>().fetch(username,
+                                email, password, confirmPassword, avatar);
+                          } else {
+                            Constants.showSnackbar(
+                                context, "Please Fill the form first!");
+                          }
+                          // context.read<RegisterNotifier>().fetch(fullname,
+                          //     username, email, password, confirmPassword);
+                        })
                     : const SpinKitFadingCircle(
-                  color: Constants.COLOR_MAIN,
-                  size: 50.0,
-                ),
+                        color: Constants.COLOR_MAIN,
+                        size: 50.0,
+                      ),
                 const SizedBox(
                   height: 12,
                 ),
@@ -165,9 +184,7 @@ class _MyHomePageState extends State<RegisterScreen> {
                     ),
                     InkWell(
                       onTap: () => {
-                        Navigator.of(context)
-                            .pushReplacementNamed(Routes.LOGIN)
-                        // Constants.goto(LoginScreen(blocContext: widget.blocContext))
+                        Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
                       },
                       child: const Text(
                         'Masuk',
@@ -185,5 +202,12 @@ class _MyHomePageState extends State<RegisterScreen> {
         ],
       )),
     );
+  }
+
+  bool checkForm() {
+    return username.isNotEmpty &&
+        email.isNotEmpty &&
+        password.isNotEmpty &&
+        confirmPassword.isNotEmpty;
   }
 }

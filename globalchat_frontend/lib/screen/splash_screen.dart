@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../util/constants.dart';
 import '../util/routes.dart';
+import '../util/service_locator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,8 +14,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<SplashScreen> {
+  void checkLoggedIn() async {
+    var prefs = ServiceLocator.prefs;
+    prefs.then((value) {
+      if (value.getString(Constants.PREF_TOKEN) != null) {
+        Navigator.pushReplacementNamed(context, Routes.HOME);
+      } else {
+        Navigator.pushReplacementNamed(context, Routes.WELCOME);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    checkLoggedIn();
     return Scaffold(
         backgroundColor: Constants.COLOR_MAIN,
         body: SafeArea(
@@ -53,22 +66,22 @@ class _MyHomePageState extends State<SplashScreen> {
         ));
   }
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // do something
-      // var prefs = ServiceLocator.prefs;
-      // prefs.then((value) {
-      //   if (value.getString(Constants.PREF_TOKEN) != null) {
-      //     Constants.popto(context, const HomeScreen());
-      //   }
-      // });
-
-      Future.delayed(1.5.seconds, () {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(Routes.WELCOME, (_) => false);
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     // do something
+  //     // var prefs = ServiceLocator.prefs;
+  //     // prefs.then((value) {
+  //     //   if (value.getString(Constants.PREF_TOKEN) != null) {
+  //     //     Constants.popto(context, const HomeScreen());
+  //     //   }
+  //     // });
+  //
+  //     Future.delayed(1.5.seconds, () {
+  //       Navigator.of(context)
+  //           .pushNamedAndRemoveUntil(Routes.WELCOME, (_) => false);
+  //     });
+  //   });
+  // }
 }

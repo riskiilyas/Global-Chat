@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../notifier/login_notifier.dart';
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
+import '../util/service_locator.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
@@ -21,33 +24,28 @@ class _MyHomePageState extends State<LoginScreen> {
   String password = "";
   FetchStatus status = FetchStatus.INITIAL;
 
-  // void init() async {
-  //   context.watch<LoginNotifier>();
-  //   status = context.read<LoginNotifier>().status;
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     if (status == FetchStatus.SUCCESS) {
-  //       var data = context.read<LoginNotifier>().loginData!;
-  //       ServiceLocator.prefs.then((pref) {
-  //         pref.setInt(Constants.PREF_UID, data.id);
-  //         pref.setString(Constants.PREF_NAME, data.name);
-  //         pref.setString(Constants.PREF_USERNAME, data.username);
-  //         pref.setString(Constants.PREF_EMAIL, data.email);
-  //         pref.setString(Constants.PREF_ROLE, data.role);
-  //         pref.setString(Constants.PREF_PROFILE_URL, data.profileUrl);
-  //         pref.setString(Constants.PREF_TOKEN, data.token);
-  //         context.read<LoginNotifier>().init();
-  //         Constants.showSnackbar(context, "Selamat datang ${data.name}!");
-  //         Constants.popto(context, const HomeScreen());
-  //       });
-  //     } else if (status == FetchStatus.ERROR) {
-  //       context.read<LoginNotifier>().init();
-  //       Constants.showSnackbar(context, "Gagal Login, Pastikan akun benar!");
-  //     }
-  //   });
-  // }
+  void init() async {
+    context.watch<LoginNotifier>();
+    status = context.read<LoginNotifier>().status;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (status == FetchStatus.SUCCESS) {
+        var data = context.read<LoginNotifier>().loginData!;
+        ServiceLocator.prefs.then((pref) {
+          context.read<PrefNotifier>().addUser(data.username, data.email, password, data.avatarId, data.avatars, data.items);
+          context.read<LoginNotifier>().init();
+          Constants.showSnackbar(context, "Selamat datang ${data.username}!");
+          Navigator.pushNamedAndRemoveUntil(context, Routes.HOME, (route) => false);
+        });
+      } else if (status == FetchStatus.ERROR) {
+        Constants.showSnackbar(context, context.read<LoginNotifier>().error);
+        context.read<LoginNotifier>().init();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -65,7 +63,9 @@ class _MyHomePageState extends State<LoginScreen> {
                       color: Constants.COLOR_MAIN),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: const Icon(
                     Icons.arrow_back,
                     color: Constants.COLOR_MAIN,
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<LoginScreen> {
               height: 48,
             ),
             CustomTextField(
-              hint: "Email",
+              hint: "Email or Username",
               icon: Icons.email,
               callback: (_) {
                 usernameOrEmail = _;
@@ -122,11 +122,10 @@ class _MyHomePageState extends State<LoginScreen> {
                 text: "MASUK",
                 textColor: Colors.white,
                 buttonColor: Constants.COLOR_MAIN,
-                onPressed: () => {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(Routes.HOME, (_)=>false)                      // context
-                      //     .read<LoginNotifier>()
-                      //     .fetch(usernameOrEmail, password)
+                onPressed: () {
+                print('oiasnfiouaesfnifesja');
+                          context.read<LoginNotifier>()
+                          .fetch(usernameOrEmail, password);
                     }),
             const SizedBox(
               height: 12,
@@ -142,7 +141,6 @@ class _MyHomePageState extends State<LoginScreen> {
                   onTap: () => {
                     Navigator.of(context)
                         .pushReplacementNamed(Routes.REGISTER)
-                    // Constants.goto(RegisterScreen(blocContext: widget.blocContext,))
                   },
                   child: const Text(
                     'Yuk Daftar!',
@@ -168,4 +166,10 @@ class _MyHomePageState extends State<LoginScreen> {
       )),
     );
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   init();
+  // }
 }

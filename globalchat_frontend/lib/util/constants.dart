@@ -11,12 +11,12 @@ class Constants {
   static const COLOR_TEXT = Color(0xFF273834);
   static const COLOR_TEXT_BACKGROUND = Color(0x32273834);
 
-  static const PREF_UID = "uid";
-  static const PREF_NAME = "name";
   static const PREF_USERNAME = "username";
+  static const PREF_PASSWORD = "password";
   static const PREF_EMAIL = "email";
-  static const PREF_ROLE = "role";
-  static const PREF_PROFILE_URL = "profile_url";
+  static const PREF_AVATAR_ID = "avatar_id";
+  static const PREF_AVATARS = "avatars";
+  static const PREF_ITEMS = "items";
   static const PREF_TOKEN = "token";
 
   static void goto(BuildContext context, Widget page) {
