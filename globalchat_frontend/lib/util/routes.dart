@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/screen/edit_profile_screen.dart';
 import 'package:globalchat_flutter/screen/forgot_password_screen.dart';
 import 'package:globalchat_flutter/screen/otp_code_screen.dart';
 
@@ -16,6 +17,7 @@ class Routes {
   static const REGISTER = '/register';
   static const FORGOT_PASSWORD = '/forgot_password';
   static const OTP_SCREEN = '/otp_screen';
+  static const EDIT_PROFILE = '/edit_profile';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -35,6 +37,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen(),);
       case OTP_SCREEN:
         return MaterialPageRoute(builder: (_) => const OtpCodeScreen(),);
+      case EDIT_PROFILE:
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen(),);
       default:
         return _errorRoute();
     }

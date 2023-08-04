@@ -43,7 +43,59 @@ class _ChatPageState extends State<ChatPage> {
             //       .fetch(pref.getString(Constants.PREF_TOKEN) ?? "");
             // });
           },
-          child: ListView(children: chats),
+          child: Column(
+            children: [
+              Expanded(child: ListView(children: chats)),
+              Row(
+                children: [
+                  Expanded(
+                      child: TextField(
+                    minLines: 1,
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Constants.COLOR_TEXT_BACKGROUND,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(64),
+                        borderSide: const BorderSide(
+                            color: Constants.COLOR_TEXT_BACKGROUND, width: 1.0),
+                      ),
+                      enabledBorder:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(64),
+                        borderSide: const BorderSide(
+                            color: Constants.COLOR_TEXT_BACKGROUND, width: 1.0),
+                      ),
+                      hintText: 'Tuliskan Pesan Anda....',
+                    ),
+                  )),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Material(
+                      elevation: 10,
+                      borderRadius: const BorderRadius.all(Radius.circular(32)),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Constants.COLOR_MAIN,
+                              borderRadius: BorderRadius.circular(64)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Icon(
+                              Icons.message_outlined,
+                              color: Colors.white,
+                            ),
+                          )),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 4,
+              )
+            ],
+          ),
         ),
       ),
     );

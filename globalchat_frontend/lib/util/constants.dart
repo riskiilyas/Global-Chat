@@ -182,6 +182,37 @@ class Constants {
           );
         });
   }
+
+  static Future<int?> showMessageInput(BuildContext context) async {
+    return showDialog<int?>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Material(
+            color: Colors.transparent,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                    height: 400,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white),
+                    child: TextField(
+                        onChanged: (_) {},
+                        decoration: const InputDecoration(
+                            hintText: "Masukkan Pesan Anda",
+                            hintStyle:
+                                TextStyle(color: Constants.COLOR_HINT_TEXT),
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Constants.COLOR_MAIN))))),
+              ),
+            ),
+          );
+        });
+  }
 }
 
 /*

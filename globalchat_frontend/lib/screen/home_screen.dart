@@ -27,10 +27,6 @@ class _MyHomePageState extends State<HomeScreen> {
       backgroundColor: Constants.COLOR_BACKGROUND,
       appBar: appbars[_index],
       body: pages[_index],
-      floatingActionButton: _index==1? FloatingActionButton(
-        backgroundColor: Constants.COLOR_MAIN,
-          onPressed: (){},
-        child: const Icon(Icons.message_outlined)) : null,
       bottomNavigationBar: AnimatedBottomNavigationBar(
         activeColor: Colors.white,
         inactiveColor: Constants.COLOR_BACKGROUND,

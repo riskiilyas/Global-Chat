@@ -24,7 +24,7 @@ class _MyHomePageState extends State<SplashScreen> {
         if (token.isNotEmpty) {
           Navigator.pushReplacementNamed(context, Routes.HOME);
         } else {
-          Navigator.pushReplacementNamed(context, Routes.WELCOME);
+          Navigator.pushReplacementNamed(context, Routes.HOME);
         }
       });
     });

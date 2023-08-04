@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../util/constants.dart';
+import '../../util/routes.dart';
 import '../../widget/custom_button.dart';
 
 class ProfilPage extends StatefulWidget {
@@ -35,81 +36,99 @@ class _ProfilPageState extends State<ProfilPage>
             elevation: 1,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Stack(
                 children: [
-                  SizedBox(
-                      width: 80,
-                      child: Image.asset(
-                        "assets/avatars/2.png",
-                        fit: BoxFit.fill,
-                      )),
-                  const SizedBox(
-                    height: 8,
+                  Positioned(
+                    right: 0,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(64),
+                              color: Colors.green[100]),
+                          child: const Icon(Icons.edit_rounded, color: Colors.grey,)),
+                    ),
                   ),
-                  const Text(
-                    "riski1351",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: Constants.COLOR_TITLE,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  const Text(
-                    'riskiilyas@gmail.com',
-                    style: TextStyle(
-                        color: Constants.COLOR_TEXT,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(
+                          width: 80,
+                          child: Image.asset(
+                            "assets/avatars/2.png",
+                            fit: BoxFit.fill,
+                          )),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       const Text(
-                        "Lvl. 14",
+                        "riski1351",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: Constants.COLOR_TEXT,
+                            color: Constants.COLOR_TITLE,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      const Text(
+                        'riskiilyas@gmail.com',
+                        style: TextStyle(
+                            color: Constants.COLOR_TEXT,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "19023",
-                            style: TextStyle(color: Constants.COLOR_TEXT),
+                            "Lvl. 14",
+                            style: TextStyle(
+                                color: Constants.COLOR_TEXT,
+                                fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          CircleAvatar(
-                            maxRadius: 12,
-                            foregroundImage: Image.asset(
-                              "assets/coin.png",
-                              width: 4,
-                            ).image,
-                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "19023",
+                                style: TextStyle(color: Constants.COLOR_TEXT),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              CircleAvatar(
+                                maxRadius: 12,
+                                foregroundImage: Image.asset(
+                                  "assets/coin.png",
+                                  width: 4,
+                                ).image,
+                              ),
+                            ],
+                          )
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      const Text("Exp: 36/100"),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      const LinearProgressIndicator(
+                        value: .36,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const Text("Exp: 36/100"),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  const LinearProgressIndicator(
-                    value: .36,
-                  ),
-                  const SizedBox(
-                    height: 8,
                   ),
                 ],
               ),
