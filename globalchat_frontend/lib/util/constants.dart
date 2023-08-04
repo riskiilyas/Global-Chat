@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/util/routes.dart';
+
+import 'dev.dart';
 
 class Constants {
   static const COLOR_BACKGROUND = Color(0xFFBFE8BC);
@@ -183,7 +186,7 @@ class Constants {
         });
   }
 
-  static Future<int?> showMessageInput(BuildContext context) async {
+  static Future<int?> showSettingsDialog(BuildContext context) async {
     return showDialog<int?>(
         context: context,
         barrierDismissible: true,
@@ -195,19 +198,148 @@ class Constants {
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
                     height: 400,
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.white),
-                    child: TextField(
-                        onChanged: (_) {},
-                        decoration: const InputDecoration(
-                            hintText: "Masukkan Pesan Anda",
-                            hintStyle:
-                                TextStyle(color: Constants.COLOR_HINT_TEXT),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Constants.COLOR_MAIN))))),
+                    child: Expanded(
+                        child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Settings",
+                              style: TextStyle(
+                                  color: Constants.COLOR_TEXT,
+                                  fontSize: 16,
+                                  fontFamily: 'GrilledCheese',
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Icon(
+                                Icons.cancel_outlined,
+                                size: 32,
+                                color: Constants.COLOR_MAIN_TEXT,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Dark Theme"),
+                                  Switch(value: false, onChanged: (_){})
+                                ],
+                              ),
+                              const SizedBox(height: 8,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Language (ID 🇮🇩/ EN 🇬🇧)"),
+                                  Switch(value: false, onChanged: (_){}),
+                                ],
+                              ),
+                              const SizedBox(height: 8,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text("Edit Profile"),
+                                  FloatingActionButton.extended(
+                                    label: const Icon( // <-- Icon
+                                      Icons.edit_rounded,
+                                    ), // <-- Text
+                                    backgroundColor: COLOR_MAIN,
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text("Logout"),
+                                  FloatingActionButton.extended(
+                                    label: const Icon( // <-- Icon
+                                      Icons.exit_to_app,
+                                    ), // <-- Text
+                                    backgroundColor: COLOR_MAIN,
+                                    onPressed: () {
+                                      Navigator.pushNamedAndRemoveUntil(context, Routes.ROOT, (route) => false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))),
+              ),
+            ),
+          );
+        });
+  }
+
+  static Future<int?> showAboutDialog(BuildContext context) async {
+    return showDialog<int?>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Material(
+            color: Colors.transparent,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                    height: 400,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.white),
+                    child: Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "About",
+                                  style: TextStyle(
+                                      color: Constants.COLOR_TEXT,
+                                      fontSize: 16,
+                                      fontFamily: 'GrilledCheese',
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Icon(
+                                    Icons.cancel_outlined,
+                                    size: 32,
+                                    color: Constants.COLOR_MAIN_TEXT,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: ListView(
+                                children: [
+                                  Text(Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ))),
               ),
             ),
           );

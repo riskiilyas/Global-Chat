@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
@@ -99,11 +100,13 @@ class _MyHomePageState extends State<HomeScreen> {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("My account menu is selected.");
+                Constants.showSettingsDialog(context);
               } else if (value == 1) {
-                print("Settings menu is selected.");
+                Constants.showAboutDialog(context);
               } else if (value == 2) {
-                print("Logout menu is selected.");
+                Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
+                  if(_) exit(0);
+                });
               }
             }),
         // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
@@ -162,12 +165,13 @@ class _MyHomePageState extends State<HomeScreen> {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("My account menu is selected.");
+                Constants.showSettingsDialog(context);
               } else if (value == 1) {
-                print("Settings menu is selected.");
+                Constants.showAboutDialog(context);
               } else if (value == 2) {
-                print("Logout menu is selected.");
-              }
+                Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
+                  if(_) exit(0);
+                });              }
             }),
         // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
       ],
@@ -210,12 +214,13 @@ class _MyHomePageState extends State<HomeScreen> {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("My account menu is selected.");
+                Constants.showSettingsDialog(context);
               } else if (value == 1) {
-                print("Settings menu is selected.");
+                Constants.showAboutDialog(context);
               } else if (value == 2) {
-                print("Logout menu is selected.");
-              }
+                Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
+                  if(_) exit(0);
+                });              }
             }),
         // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
       ],
