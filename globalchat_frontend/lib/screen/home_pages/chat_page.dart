@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:globalchat_flutter/widget/me_chat_widget.dart';
-import 'package:globalchat_flutter/widget/user_chat_widget.dart';
-import 'package:globalchat_flutter/widget/user_joined_widget.dart';
+import 'package:globalchat_flutter/notifier/chat_notifier.dart';
+import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:provider/provider.dart';
 import '../../util/constants.dart';
 
@@ -14,14 +13,22 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   var name = "";
+  List<Widget> chats = [];
 
-  // void init(BuildContext context) async {
-  //   context.watch<PrefNotifier>();
-  //   name = context.read<PrefNotifier>().name;
-  // }
+  void init() async {
+    final username = context.read<PrefNotifier>().username;
+    final avatarId = context.read<PrefNotifier>().avatarId;
+
+    context.watch<ChatNotifier>().init(username, avatarId);
+    chats.clear();
+    context.read<ChatNotifier>().users.forEach((element) {
+      chats.add(Text(element.username));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return SafeArea(
       child: Container(
         color: Constants.COLOR_BACKGROUND,
@@ -36,21 +43,7 @@ class _ChatPageState extends State<ChatPage> {
             //       .fetch(pref.getString(Constants.PREF_TOKEN) ?? "");
             // });
           },
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              UserJoinedWidget(user: "riski1351"),
-              UserJoinedWidget(user: "sixtyn9"),
-              UserChatWidget(avatar: 6, username: "realuser13", msg: "Hello There!", time: "16:30", onUserClicked: (_){}),
-              UserChatWidget(avatar: 8, username: "ggpresident", msg: "Wassup!", time: "16:32", onUserClicked: (_){}),
-              UserJoinedWidget(user: "gamerboiii"),
-              MeChatWidget(avatar: 19, username: "riski1351", msg: "Hai juga!", time: "16:35"),
-              UserJoinedWidget(user: "newuserrr"),
-              UserJoinedWidget(user: "pewdipiee"),
-            ],
-          ),
+          child: ListView(children: chats),
         ),
       ),
     );

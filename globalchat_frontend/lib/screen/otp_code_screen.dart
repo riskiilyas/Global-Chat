@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/screen/home_screen.dart';
@@ -12,14 +13,14 @@ import '../util/service_locator.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class OtpCodeScreen extends StatefulWidget {
+  const OtpCodeScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _MyHomePageState();
+  State<OtpCodeScreen> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<ForgotPasswordScreen> {
+class _MyHomePageState extends State<OtpCodeScreen> {
   String usernameOrEmail = "";
   String password = "";
   FetchStatus status = FetchStatus.INITIAL;
@@ -55,7 +56,7 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Lupa Password',
+                      'Kode OTP',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -82,65 +83,51 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
                   child: SizedBox(
                     height: 200,
                     child: Image.asset(
-                      'assets/forgot.png',
+                      'assets/otp.png',
                       fit: BoxFit.fill,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 32,
+                  height: 48,
                 ),
-                CustomTextField(
-                  hint: "Masukkan Email",
-                  icon: Icons.email,
-                  callback: (_) {
-                    usernameOrEmail = _;
+                OtpTextField(
+                  numberOfFields: 4,
+                  borderColor: Constants.COLOR_MAIN,
+                  focusedBorderColor: Constants.COLOR_MAIN,
+                  showFieldAsBox: true,
+                  styles: List.generate(4, (index) => TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                  onCodeChanged: (String code) {
+                    //handle validation or checks here
                   },
+                  //runs when every textfield is filled
+                  onSubmit: (String verificationCode){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return AlertDialog(
+                            title: Text("Verification Code"),
+                            content: Text('Code entered is $verificationCode'),
+                          );
+                        }
+                    );
+                  }, // end onSubmit
                 ),
                 const SizedBox(
-                  height: 16,
-                ),
-                CustomTextField(
-                  hint: "Masukkan Password Baru",
-                  icon: Icons.password,
-                  callback: (_) {
-                    usernameOrEmail = _;
-                  },
-                ),
-                const SizedBox(
-                  height: 32,
+                  height: 48,
                 ),
                 CustomButton(
-                    text: "KIRIM",
+                    text: "KIRIM KODE OTP",
                     textColor: Colors.white,
                     buttonColor: Constants.COLOR_MAIN,
                     onPressed: () {
-                      Navigator.pushNamed(context, Routes.OTP_SCREEN);
+                      Constants.showSnackbar(context, "Password Berhasil Diubah!");
+                      Navigator.pushNamedAndRemoveUntil(context, Routes.WELCOME, (route) => false);
+                      // context.read<LoginNotifier>()
+                      //     .fetch(usernameOrEmail, password);
                     }),
                 const SizedBox(
                   height: 20,
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      'Belum Punya Akun? ',
-                      style: TextStyle(
-                          color: Constants.COLOR_HINT_TEXT, fontSize: 16),
-                    ),
-                    InkWell(
-                      onTap: () => {
-                        Navigator.of(context)
-                            .pushReplacementNamed(Routes.REGISTER)
-                      },
-                      child: const Text(
-                        'Yuk Daftar!',
-                        style: TextStyle(
-                            color: Constants.COLOR_MAIN,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),

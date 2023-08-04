@@ -16,6 +16,7 @@ class Network {
     final response = await http.Client().post(
       Uri.parse("$baseurl/auth/register"),
       headers: <String, String>{
+        "Access-Control-Allow-Origin": "*",
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
@@ -36,11 +37,13 @@ class Network {
   }
 
   Future<LoginResponse> login(email, password) async {
-    var baseurl = dotenv.env['BASE_URL'] ?? "";
+    var baseurl = dotenv.env['BASE_URL'] ?? "http://localhost:8080";
+    print(email + password + "  $baseurl/auth/login");
 
     final response = await http.Client().post(
       Uri.parse("$baseurl/auth/login"),
       headers: <String, String>{
+        "Access-Control-Allow-Origin": "*",
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
@@ -48,6 +51,8 @@ class Network {
         "password": password,
       }),
     );
+
+    print(response.body.toString());
 
     try {
       return LoginResponse.fromJson(json.decode(response.body));

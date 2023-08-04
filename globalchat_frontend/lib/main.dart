@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/screen/welcome_screen.dart';
 import 'package:globalchat_flutter/util/routes.dart';
@@ -16,6 +17,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => RegisterNotifier()),
     ChangeNotifierProvider(create: (_) => LoginNotifier()),
     ChangeNotifierProvider(create: (_) => PrefNotifier()),
+    ChangeNotifierProvider(create: (_) => ChatNotifier()),
   ], child: MyApp()));
 }
 

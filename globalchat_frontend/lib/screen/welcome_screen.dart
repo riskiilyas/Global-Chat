@@ -69,6 +69,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                             children: [
                               InkWell(
                                 onTap: () {
+                                  Navigator.pushNamed(context, Routes.FORGOT_PASSWORD);
                                 },
                                 child: const Text(
                                   "Lupa Password?",
