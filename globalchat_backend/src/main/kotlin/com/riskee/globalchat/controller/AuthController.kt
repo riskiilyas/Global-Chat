@@ -1,5 +1,6 @@
 package com.riskee.globalchat.controller
 
+import com.riskee.globalchat.model.ResponseErrorModel
 import com.riskee.globalchat.model.dto.User
 import com.riskee.globalchat.model.request.LoginRequest
 import com.riskee.globalchat.model.request.RegisterRequest
@@ -26,9 +27,9 @@ class AuthController(
     ) = ResponseModelSingle(200, "success", authService.login(body))
 
     @ExceptionHandler(ApiExceptions::class)
-    fun handleBadRequest(e: ApiExceptions): ResponseEntity<ResponseModelSingle<User?>> {
+    fun handleBadRequest(e: ApiExceptions): ResponseEntity<ResponseErrorModel> {
         return ResponseEntity(
-            ResponseModelSingle(e.status.value(), e.errorMessage, null),
+            ResponseErrorModel(e.status.value(), e.errorMessage),
             e.status
         )
     }
