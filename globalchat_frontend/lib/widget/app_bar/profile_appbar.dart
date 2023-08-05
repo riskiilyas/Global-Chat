@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../util/constants.dart';
+import '../../util/dialogs.dart';
 import '../../util/styles.dart';
 
 class ProfileAppBar extends AppBar {
@@ -56,11 +56,11 @@ class _ProfileAppBarState extends State<ProfileAppBar> {
             },
             onSelected: (value) {
               if (value == 0) {
-                Constants.showSettingsDialog(context);
+                Dialogs.showSettingsDialog(context);
               } else if (value == 1) {
-                Constants.showAboutDialog(context);
+                Dialogs.showAboutDialog(context);
               } else if (value == 2) {
-                Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
+                Dialogs.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
                   if (_) exit(0);
                 });
               }

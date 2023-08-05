@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/register_notifier.dart';
-import '../util/constants.dart';
+import '../util/dialogs.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
 import '../util/styles.dart';
@@ -31,11 +32,11 @@ class _MyHomePageState extends State<RegisterScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (status == FetchStatus.SUCCESS) {
         context.read<RegisterNotifier>().init();
-        Constants.showSnackbar(context, "Successfully Registered!");
+        context.showSnackbar("Successfully Registered!");
         Navigator.pushReplacementNamed(context, Routes.WELCOME);
       } else if (status == FetchStatus.ERROR) {
         context.read<RegisterNotifier>().init();
-        Constants.showSnackbar(context, context.read<RegisterNotifier>().error);
+        context.showSnackbar(context.registerNotifier.error);
       }
     });
   }
@@ -89,7 +90,7 @@ class _MyHomePageState extends State<RegisterScreen> {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      Constants.showAvatarPicker(context).then((value) {
+                      Dialogs.showAvatarPicker(context).then((value) {
                         if (value != null) {
                           setState(() {
                             avatar = value;
@@ -163,8 +164,7 @@ class _MyHomePageState extends State<RegisterScreen> {
                             context.read<RegisterNotifier>().fetch(username,
                                 email, password, confirmPassword, avatar);
                           } else {
-                            Constants.showSnackbar(
-                                context, "Please Fill the form first!");
+                            context.showSnackbar("Please Fill the form first!");
                           }
                           // context.read<RegisterNotifier>().fetch(fullname,
                           //     username, email, password, confirmPassword);

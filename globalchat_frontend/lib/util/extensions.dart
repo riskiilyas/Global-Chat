@@ -6,7 +6,12 @@ import '../notifier/login_notifier.dart';
 import '../notifier/pref_notifier.dart';
 import '../notifier/register_notifier.dart';
 
-extension Notifier on State {
+extension Notifier on BuildContext {
+  void showSnackbar(String msg) {
+    var snackBar = SnackBar(content: Text(msg));
+    ScaffoldMessenger.of(this).showSnackBar(snackBar);
+  }
+
   PrefNotifier get prefNotifier {
     return _notifier<PrefNotifier>();
   }
@@ -24,22 +29,22 @@ extension Notifier on State {
   }
 
   void goTo(String routes) {
-    Navigator.pushNamed(context, routes);
+    Navigator.pushNamed(this, routes);
   }
 
   void jumpTo(String routes) {
-    Navigator.pushReplacementNamed(context, routes);
+    Navigator.pushReplacementNamed(this, routes);
   }
 
   void popTo(String routes) {
-    Navigator.pushNamedAndRemoveUntil(context, routes, (_) => false);
+    Navigator.pushNamedAndRemoveUntil(this, routes, (_) => false);
   }
 
   void goBack() {
-    Navigator.pop(context);
+    Navigator.pop(this);
   }
 
   T _notifier<T extends ChangeNotifier>() {
-    return context.read<T>();
+    return read<T>();
   }
 }

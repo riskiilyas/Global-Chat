@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../util/constants.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
 import '../util/styles.dart';
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<OtpCodeScreen> {
                 textColor: Colors.white,
                 buttonColor: Styles.COLOR_MAIN,
                 onPressed: () {
-                  Constants.showSnackbar(context, "Password Berhasil Diubah!");
+                  context.showSnackbar("Password Berhasil Diubah!");
                   Navigator.pushNamedAndRemoveUntil(
                       context, Routes.WELCOME, (route) => false);
                   // context.read<LoginNotifier>()

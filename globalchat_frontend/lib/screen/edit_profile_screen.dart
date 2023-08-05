@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/widget/page_title.dart';
 import 'package:provider/provider.dart';
 
-import '../notifier/register_notifier.dart';
-import '../util/constants.dart';
+import '../util/dialogs.dart';
 import '../util/fetch_status.dart';
-import '../util/routes.dart';
 import '../util/styles.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
@@ -51,27 +50,7 @@ class _MyHomePageState extends State<EditProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Styles.COLOR_MAIN_2),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Styles.COLOR_MAIN_2,
-                      ),
-                    )
-                  ],
-                ),
+                const PageTitle(title: 'Edit Profile'),
                 Divider(
                   color: Styles.COLOR_MAIN,
                 ),
@@ -81,7 +60,7 @@ class _MyHomePageState extends State<EditProfileScreen> {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      Constants.showAvatarPicker(context).then((value) {
+                      Dialogs.showAvatarPicker(context).then((value) {
                         if (value != null) {
                           setState(() {
                             avatar = value;

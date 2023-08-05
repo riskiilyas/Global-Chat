@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/login_notifier.dart';
-import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
 import '../util/service_locator.dart';
@@ -34,12 +34,12 @@ class _MyHomePageState extends State<LoginScreen> {
           context.read<PrefNotifier>().addUser(data.username, data.email,
               password, data.avatarId, data.avatars, data.items, data.token);
           context.read<LoginNotifier>().init();
-          Constants.showSnackbar(context, "Selamat datang ${data.username}!");
+          context.showSnackbar("Selamat datang ${data.username}!");
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.HOME, (route) => false);
         });
       } else if (status == FetchStatus.ERROR) {
-        Constants.showSnackbar(context, context.read<LoginNotifier>().error);
+        context.showSnackbar(context.loginNotifier.error);
         context.read<LoginNotifier>().init();
       }
     });

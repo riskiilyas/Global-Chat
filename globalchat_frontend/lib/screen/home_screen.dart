@@ -7,13 +7,11 @@ import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/screen/home_pages/chat_page.dart';
 import 'package:globalchat_flutter/screen/home_pages/profile_page.dart';
 import 'package:globalchat_flutter/screen/home_pages/shop_page.dart';
-import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:globalchat_flutter/widget/app_bar/main_appbar.dart';
 import 'package:globalchat_flutter/widget/app_bar/profile_appbar.dart';
 import 'package:globalchat_flutter/widget/app_bar/shop_appbar.dart';
 import 'package:provider/provider.dart';
 
-import '../util/constants.dart';
 import '../util/styles.dart';
 
 class HomeScreen extends StatefulWidget {
