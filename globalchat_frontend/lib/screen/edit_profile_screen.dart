@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/register_notifier.dart';
@@ -23,24 +24,25 @@ class _MyHomePageState extends State<EditProfileScreen> {
   int avatar = 2;
 
   void init() async {
-    context.watch<RegisterNotifier>();
-    status = context.read<RegisterNotifier>().status;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (status == FetchStatus.SUCCESS) {
-        context.read<RegisterNotifier>().init();
-        Constants.showSnackbar(context, "Successfully Registered!");
-        Navigator.pushReplacementNamed(context, Routes.WELCOME);
-      } else if (status == FetchStatus.ERROR) {
-        context.read<RegisterNotifier>().init();
-        Constants.showSnackbar(context, context.read<RegisterNotifier>().error);
-      }
-    });
+    context.watch<ThemeNotifier>();
+    // status = context.read<RegisterNotifier>().status;
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (status == FetchStatus.SUCCESS) {
+    //     context.read<RegisterNotifier>().init();
+    //     Constants.showSnackbar(context, "Successfully Registered!");
+    //     Navigator.pushReplacementNamed(context, Routes.WELCOME);
+    //   } else if (status == FetchStatus.ERROR) {
+    //     context.read<RegisterNotifier>().init();
+    //     Constants.showSnackbar(context, context.read<RegisterNotifier>().error);
+    //   }
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     init();
     return Scaffold(
+      backgroundColor: Styles.COLOR_BACKGROUND,
       body: SafeArea(
           child: ListView(
         children: [
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<EditProfileScreen> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
-                          color: Styles.COLOR_MAIN),
+                          color: Styles.COLOR_MAIN_2),
                     ),
                     InkWell(
                       onTap: () {
@@ -65,7 +67,7 @@ class _MyHomePageState extends State<EditProfileScreen> {
                       },
                       child: Icon(
                         Icons.arrow_back,
-                        color: Styles.COLOR_MAIN,
+                        color: Styles.COLOR_MAIN_2,
                       ),
                     )
                   ],

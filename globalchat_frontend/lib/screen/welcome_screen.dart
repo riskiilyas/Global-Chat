@@ -42,7 +42,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                           CustomButton(
                               text: "Masuk",
                               width: 200,
-                              textColor: Colors.white,
+                              textColor: Styles.COLOR_BACKGROUND_2,
                               buttonColor: Styles.COLOR_MAIN_TEXT,
                               onPressed: () => {
                                     Navigator.of(context)

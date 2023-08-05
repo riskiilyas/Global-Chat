@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../util/routes.dart';
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    checkLoggedIn();
+    context.read<ThemeNotifier>().init().then((value) => checkLoggedIn());
     return Scaffold(
         backgroundColor: Styles.COLOR_MAIN,
         body: SafeArea(

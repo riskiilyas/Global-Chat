@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 import '../../util/styles.dart';
 
@@ -18,7 +19,7 @@ class _ChatPageState extends State<ChatPage> {
   void init() async {
     final username = context.read<PrefNotifier>().username;
     final avatarId = context.read<PrefNotifier>().avatarId;
-
+    context.watch<ThemeNotifier>();
     context.watch<ChatNotifier>().init(username, avatarId);
     chats.clear();
     context.read<ChatNotifier>().users.forEach((element) {

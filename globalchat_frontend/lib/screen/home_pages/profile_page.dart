@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../notifier/theme_notifier.dart';
 import '../../util/routes.dart';
 import '../../util/styles.dart';
 
@@ -14,7 +16,7 @@ class _ProfilPageState extends State<ProfilPage>
     with SingleTickerProviderStateMixin {
   String name = "", username = "", email = "", profileUrl = "";
   int tab = 0;
-  List<GridView> pages = [];
+  List<Widget> pages = [];
   late TabController tabController;
 
   // void init(BuildContext context) async {
@@ -28,11 +30,13 @@ class _ProfilPageState extends State<ProfilPage>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<ThemeNotifier>();
     return SafeArea(
       child: Column(
         children: [
           Card(
             elevation: 1,
+            color: Styles.COLOR_BACKGROUND,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Stack(
@@ -120,7 +124,7 @@ class _ProfilPageState extends State<ProfilPage>
                       const SizedBox(
                         height: 12,
                       ),
-                      const Text("Exp: 36/100"),
+                      Text("Exp: 36/100", style: TextStyle(color: Styles.COLOR_TEXT),),
                       const SizedBox(
                         height: 4,
                       ),
@@ -176,9 +180,12 @@ class _ProfilPageState extends State<ProfilPage>
                       ),
                     ),
                     Expanded(
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: pages[tab]),
+                      child: Container(
+                        color: Styles.COLOR_BACKGROUND,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: pages[tab]),
+                      ),
                     )
                   ],
                 ),
@@ -201,7 +208,6 @@ class _ProfilPageState extends State<ProfilPage>
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            Navigator.pop(context, index + 1);
           },
           child: Padding(
             padding: const EdgeInsets.all(4.0),
@@ -220,7 +226,6 @@ class _ProfilPageState extends State<ProfilPage>
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            Navigator.pop(context, index + 1);
           },
           child: Padding(
             padding: const EdgeInsets.all(4.0),

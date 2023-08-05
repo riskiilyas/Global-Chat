@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/login_notifier.dart';
@@ -8,6 +9,10 @@ import '../notifier/register_notifier.dart';
 extension Notifier on State {
   PrefNotifier get prefNotifier {
     return _notifier<PrefNotifier>();
+  }
+
+  ThemeNotifier get themeNotifier {
+    return _notifier<ThemeNotifier>();
   }
 
   LoginNotifier get loginNotifier {

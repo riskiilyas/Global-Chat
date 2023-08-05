@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/util/routes.dart';
 import 'package:globalchat_flutter/util/styles.dart';
+import 'package:provider/provider.dart';
 
 import 'dev.dart';
 
@@ -14,6 +17,8 @@ class Constants {
   static const PREF_AVATARS = "avatars";
   static const PREF_ITEMS = "items";
   static const PREF_TOKEN = "token";
+  static const PREF_DARK_MODE = "dark_mode";
+  static const PREF_ENG_LANG = "eng_lang";
 
   static void goto(BuildContext context, Widget page) {
     Navigator.push(
@@ -123,7 +128,7 @@ class Constants {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Colors.white),
+                      color: Styles.COLOR_BACKGROUND),
                   child: Column(children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,7 +199,7 @@ class Constants {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.white),
+                        color: Styles.COLOR_BACKGROUND),
                     child: Expanded(
                         child: Column(
                       children: [
@@ -228,8 +233,18 @@ class Constants {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Dark Theme"),
-                                  Switch(value: false, onChanged: (_) {})
+                                  Text(
+                                    "Dark Theme",
+                                    style: TextStyle(color: Styles.COLOR_TEXT),
+                                  ),
+                                  Switch(
+                                      value:
+                                          context.watch<ThemeNotifier>().isDark,
+                                      onChanged: (_) {
+                                        context
+                                            .read<ThemeNotifier>()
+                                            .switchTheme();
+                                      })
                                 ],
                               ),
                               const SizedBox(
@@ -239,7 +254,10 @@ class Constants {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Language (ID 🇮🇩/ EN 🇬🇧)"),
+                                  Text(
+                                    "Language (ID 🇮🇩/ EN 🇬🇧)",
+                                    style: TextStyle(color: Styles.COLOR_TEXT),
+                                  ),
                                   Switch(value: false, onChanged: (_) {}),
                                 ],
                               ),
@@ -250,7 +268,10 @@ class Constants {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text("Edit Profile"),
+                                   Text(
+                                    "Edit Profile",
+                                    style: TextStyle(color: Styles.COLOR_TEXT),
+                                  ),
                                   FloatingActionButton.extended(
                                     label: const Icon(
                                       // <-- Icon
@@ -271,14 +292,19 @@ class Constants {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text("Logout"),
+                                  Text(
+                                    "Logout",
+                                    style: TextStyle(color: Styles.COLOR_TEXT),
+                                  ),
                                   FloatingActionButton.extended(
                                     label: const Icon(
                                       // <-- Icon
                                       Icons.exit_to_app,
                                     ), // <-- Text
                                     backgroundColor: Styles.COLOR_MAIN,
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      context.read<PrefNotifier>().clear();
+                                      context.read<ThemeNotifier>().clear();
                                       Navigator.pushNamedAndRemoveUntil(context,
                                           Routes.ROOT, (route) => false);
                                     },
@@ -311,7 +337,7 @@ class Constants {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.white),
+                        color: Styles.COLOR_BACKGROUND_2),
                     child: Expanded(
                         child: Column(
                       children: [
@@ -342,7 +368,7 @@ class Constants {
                           child: ListView(
                             children: [
                               Text(
-                                  Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM)
+                                  Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM, style: TextStyle(color: Styles.COLOR_TEXT),)
                             ],
                           ),
                         ),

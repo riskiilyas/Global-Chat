@@ -1,0 +1,181 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:provider/provider.dart';
+
+import '../../util/constants.dart';
+import '../../util/styles.dart';
+
+class MainAppBar extends AppBar {
+  MainAppBar({Key? key}) : super(key: key);
+
+  @override
+  State<MainAppBar> createState() => _MainAppBarState();
+}
+
+class _MainAppBarState extends State<MainAppBar> {
+  Random random = Random(4664);
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<ThemeNotifier>();
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Styles.COLOR_MAIN, //change your color here
+      ),
+      automaticallyImplyLeading: false,
+      backgroundColor: Styles.COLOR_MAIN,
+      centerTitle: false,
+      title: Image.asset(
+        "assets/appbar.png",
+        fit: BoxFit.contain,
+        height: 36,
+      ),
+      actions: <Widget>[
+        IconButton(
+            icon: const Icon(
+              Icons.people_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showOnlineUsers(context);
+              // Get.to(() => const WishListScreen());
+            }),
+        PopupMenuButton(
+          // add icon, by default "3 dot" icon
+          // icon: Icon(Icons.book)
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem<int>(
+                  value: 0,
+                  child: Text("Settings"),
+                ),
+                const PopupMenuItem<int>(
+                  value: 1,
+                  child: Text("About"),
+                ),
+                const PopupMenuItem<int>(
+                  value: 2,
+                  child: Text("Exit"),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              if (value == 0) {
+                Constants.showSettingsDialog(context);
+              } else if (value == 1) {
+                Constants.showAboutDialog(context);
+              } else if (value == 2) {
+                Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
+                  if (_) exit(0);
+                });
+              }
+            }),
+        // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
+      ],
+    );
+  }
+
+  Future<String?> showOnlineUsers(BuildContext context) async {
+    return showDialog<String?>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Material(
+          color: Colors.transparent,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                height: 400,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Styles.COLOR_BACKGROUND_2),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Online Users",
+                        style: TextStyle(
+                            color: Styles.COLOR_TEXT,
+                            fontSize: 16,
+                            fontFamily: 'GrilledCheese',
+                            fontWeight: FontWeight.normal),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.cancel_outlined,
+                          size: 32,
+                          color: Styles.COLOR_MAIN_TEXT,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: ListView(
+                          children: List.generate(
+                              10,
+                                  (index) => Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4),
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(
+                                            foregroundImage: Image.asset(
+                                                'assets/avatars/${index + 1}.png')
+                                                .image,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                              child: Text(
+                                                "User${random.nextInt(10000)}", style: TextStyle(color: Styles.COLOR_TEXT),)),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                width: 20.0,
+                                                height: 20.0,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.green,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                              ),
+                                              Text(
+                                                "online",
+                                                style: TextStyle(
+                                                    color:  Styles.COLOR_TEXT),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const Divider()
+                                ],
+                              )))),
+                ]),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+}

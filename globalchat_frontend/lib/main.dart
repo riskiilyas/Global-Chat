@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
+import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/util/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => LoginNotifier()),
     ChangeNotifierProvider(create: (_) => PrefNotifier()),
     ChangeNotifierProvider(create: (_) => ChatNotifier()),
+    ChangeNotifierProvider(create: (_) => ThemeNotifier()),
   ], child: const MyApp()));
 }
 
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    context.watch<ThemeNotifier>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Global Chat',

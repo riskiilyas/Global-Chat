@@ -14,6 +14,8 @@ class PrefNotifier with ChangeNotifier {
   String _token = "";
   String _avatars = "";
   String _items = "";
+  bool isDark = false;
+  bool isEnglish = false;
   SharedPreferences? _pref;
 
   FetchStatus get status => _status;
@@ -37,6 +39,11 @@ class PrefNotifier with ChangeNotifier {
     _token = _pref!.getString(Constants.PREF_TOKEN) ?? "";
     _status = FetchStatus.SUCCESS;
     notifyListeners();
+  }
+
+  Future<void> clear() async {
+    _pref!.clear();
+    init();
   }
 
   Future<void> addUser(
