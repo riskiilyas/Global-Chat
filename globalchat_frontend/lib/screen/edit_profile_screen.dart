@@ -6,6 +6,7 @@ import '../notifier/register_notifier.dart';
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
+import '../util/styles.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
@@ -42,90 +43,90 @@ class _MyHomePageState extends State<EditProfileScreen> {
     return Scaffold(
       body: SafeArea(
           child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Text(
+                      'Edit Profile',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Styles.COLOR_MAIN),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Styles.COLOR_MAIN,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(
+                  color: Styles.COLOR_MAIN,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      Constants.showAvatarPicker(context).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            avatar = value;
+                          });
+                        }
+                      });
+                    },
+                    child: Stack(
                       children: [
-                        const Text(
-                          'Edit Profile',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Constants.COLOR_MAIN),
+                        CircleAvatar(
+                          foregroundImage: Image.asset(
+                            "assets/avatars/$avatar.png",
+                          ).image,
+                          maxRadius: 80,
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: Constants.COLOR_MAIN,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.image,
+                            size: 32,
+                            color: Styles.COLOR_MAIN_TEXT,
                           ),
                         )
                       ],
                     ),
-                    const Divider(
-                      color: Constants.COLOR_MAIN,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          Constants.showAvatarPicker(context).then((value) {
-                            if (value != null) {
-                              setState(() {
-                                avatar = value;
-                              });
-                            }
-                          });
-                        },
-                        child: Stack(
-                          children: [
-                            CircleAvatar(
-                              foregroundImage: Image.asset(
-                                "assets/avatars/${avatar}.png",
-                              ).image,
-                              maxRadius: 80,
-                            ),
-                            const Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: Icon(
-                                Icons.image,
-                                size: 32,
-                                color: Constants.COLOR_MAIN_TEXT,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      hint: "Username",
-                      icon: Icons.person,
-                      callback: (_) => username = _,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    status != FetchStatus.LOADING && status != FetchStatus.SUCCESS
-                        ? CustomButton(
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hint: "Username",
+                  icon: Icons.person,
+                  callback: (_) => username = _,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                status != FetchStatus.LOADING && status != FetchStatus.SUCCESS
+                    ? CustomButton(
                         text: "UPDATE",
                         textColor: Colors.white,
-                        buttonColor: Constants.COLOR_MAIN,
+                        buttonColor: Styles.COLOR_MAIN,
                         onPressed: () {
                           // if (checkForm()) {
                           //   context.read<RegisterNotifier>().fetch(username,
@@ -137,18 +138,18 @@ class _MyHomePageState extends State<EditProfileScreen> {
                           // // context.read<RegisterNotifier>().fetch(fullname,
                           //     username, email, password, confirmPassword);
                         })
-                        : const SpinKitFadingCircle(
-                      color: Constants.COLOR_MAIN,
-                      size: 50.0,
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                  ],
+                    : SpinKitFadingCircle(
+                        color: Styles.COLOR_MAIN,
+                        size: 50.0,
+                      ),
+                const SizedBox(
+                  height: 12,
                 ),
-              ),
-            ],
-          )),
+              ],
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/constants.dart';
+import '../util/styles.dart';
 
 class UserJoinedWidget extends StatelessWidget {
   final String user;
@@ -14,24 +14,27 @@ class UserJoinedWidget extends StatelessWidget {
         Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Constants.COLOR_TEXT_BACKGROUND,
+                color: Styles.COLOR_TEXT_BACKGROUND,
                 borderRadius: BorderRadius.circular(16)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   user,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Constants.COLOR_TEXT),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Styles.COLOR_TEXT),
                 ),
-                const Text(
+                Text(
                   " Joined the Chat",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Constants.COLOR_HINT_TEXT),
+                      fontWeight: FontWeight.bold,
+                      color: Styles.COLOR_HINT_TEXT),
                 ),
               ],
             )),
-        const SizedBox(height: 8,)
+        const SizedBox(
+          height: 8,
+        )
       ],
     );
   }

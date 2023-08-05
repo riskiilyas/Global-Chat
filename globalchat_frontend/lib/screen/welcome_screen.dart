@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:globalchat_flutter/screen/login_screen.dart';
-import 'package:globalchat_flutter/screen/register_screen.dart';
 
-import '../util/constants.dart';
 import '../util/routes.dart';
+import '../util/styles.dart';
 import '../widget/custom_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -17,7 +15,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Constants.COLOR_MAIN,
+        backgroundColor: Styles.COLOR_MAIN,
         body: SafeArea(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
@@ -45,7 +43,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                               text: "Masuk",
                               width: 200,
                               textColor: Colors.white,
-                              buttonColor: Constants.COLOR_MAIN_TEXT,
+                              buttonColor: Styles.COLOR_MAIN_TEXT,
                               onPressed: () => {
                                     Navigator.of(context)
                                         .pushNamed(Routes.LOGIN)
@@ -56,11 +54,12 @@ class _MyHomePageState extends State<WelcomeScreen> {
                           CustomButton(
                               text: "Daftar",
                               width: 200,
-                              textColor: Constants.COLOR_MAIN,
+                              textColor: Styles.COLOR_MAIN,
                               buttonColor: Colors.white,
                               onPressed: () => {
-                                Navigator.of(context)
-                                    .pushNamed(Routes.REGISTER)                              }),
+                                    Navigator.of(context)
+                                        .pushNamed(Routes.REGISTER)
+                                  }),
                           const SizedBox(
                             height: 12,
                           ),
@@ -69,7 +68,8 @@ class _MyHomePageState extends State<WelcomeScreen> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, Routes.FORGOT_PASSWORD);
+                                  Navigator.pushNamed(
+                                      context, Routes.FORGOT_PASSWORD);
                                 },
                                 child: const Text(
                                   "Lupa Password?",
@@ -97,17 +97,17 @@ class _MyHomePageState extends State<WelcomeScreen> {
         ));
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     // do something
-  //     var prefs = ServiceLocator.prefs;
-  //     prefs.then((value) {
-  //       if (value.getString(Constants.PREF_TOKEN) != null) {
-  //         Constants.popto(context, const HomeScreen());
-  //       }
-  //     });
-  //   });
-  // }
+// @override
+// void initState() {
+//   super.initState();
+//   WidgetsBinding.instance.addPostFrameCallback((_) {
+//     // do something
+//     var prefs = ServiceLocator.prefs;
+//     prefs.then((value) {
+//       if (value.getString(Constants.PREF_TOKEN) != null) {
+//         Constants.popto(context, const HomeScreen());
+//       }
+//     });
+//   });
+// }
 }

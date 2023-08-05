@@ -2,18 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/util/routes.dart';
+import 'package:globalchat_flutter/util/styles.dart';
 
 import 'dev.dart';
 
 class Constants {
-  static const COLOR_BACKGROUND = Color(0xFFBFE8BC);
-  static const COLOR_MAIN = Color(0xFF48BF53);
-  static const COLOR_MAIN_TEXT = Color(0xFF11813B);
-  static const COLOR_HINT_TEXT = Color(0xFF7B9691);
-  static const COLOR_TITLE = Color(0xFF02231C);
-  static const COLOR_TEXT = Color(0xFF273834);
-  static const COLOR_TEXT_BACKGROUND = Color(0x32273834);
-
   static const PREF_USERNAME = "username";
   static const PREF_PASSWORD = "password";
   static const PREF_EMAIL = "email";
@@ -56,10 +49,10 @@ class Constants {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text(
+              child: Text(
                 'Tidak',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: COLOR_MAIN),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Styles.COLOR_MAIN),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,10 +60,10 @@ class Constants {
               },
             ),
             TextButton(
-              child: const Text(
+              child: Text(
                 'Iya',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: COLOR_MAIN),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Styles.COLOR_MAIN),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -101,10 +94,10 @@ class Constants {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.grey.shade200.withOpacity(0.8)),
-                  child: const Icon(
+                  child: Icon(
                     Icons.cancel_outlined,
                     size: 32,
-                    color: Constants.COLOR_MAIN_TEXT,
+                    color: Styles.COLOR_MAIN_TEXT,
                   ),
                 ),
               ),
@@ -135,10 +128,10 @@ class Constants {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           "Choose Avatar",
                           style: TextStyle(
-                              color: Constants.COLOR_TEXT,
+                              color: Styles.COLOR_TEXT,
                               fontSize: 16,
                               fontFamily: 'GrilledCheese',
                               fontWeight: FontWeight.normal),
@@ -147,10 +140,10 @@ class Constants {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.cancel_outlined,
                             size: 32,
-                            color: Constants.COLOR_MAIN_TEXT,
+                            color: Styles.COLOR_MAIN_TEXT,
                           ),
                         ),
                       ],
@@ -208,10 +201,10 @@ class Constants {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Settings",
                               style: TextStyle(
-                                  color: Constants.COLOR_TEXT,
+                                  color: Styles.COLOR_TEXT,
                                   fontSize: 16,
                                   fontFamily: 'GrilledCheese',
                                   fontWeight: FontWeight.normal),
@@ -220,10 +213,10 @@ class Constants {
                               onTap: () {
                                 Navigator.pop(context);
                               },
-                              child: const Icon(
+                              child: Icon(
                                 Icons.cancel_outlined,
                                 size: 32,
-                                color: Constants.COLOR_MAIN_TEXT,
+                                color: Styles.COLOR_MAIN_TEXT,
                               ),
                             ),
                           ],
@@ -232,48 +225,62 @@ class Constants {
                           child: ListView(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text("Dark Theme"),
-                                  Switch(value: false, onChanged: (_){})
+                                  Switch(value: false, onChanged: (_) {})
                                 ],
                               ),
-                              const SizedBox(height: 8,),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text("Language (ID 🇮🇩/ EN 🇬🇧)"),
-                                  Switch(value: false, onChanged: (_){}),
+                                  Switch(value: false, onChanged: (_) {}),
                                 ],
                               ),
-                              const SizedBox(height: 8,),
+                              const SizedBox(
+                                height: 8,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("Edit Profile"),
                                   FloatingActionButton.extended(
-                                    label: const Icon( // <-- Icon
+                                    label: const Icon(
+                                      // <-- Icon
                                       Icons.edit_rounded,
                                     ), // <-- Text
-                                    backgroundColor: COLOR_MAIN,
+                                    backgroundColor: Styles.COLOR_MAIN,
                                     onPressed: () {
-                                      Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+                                      Navigator.pushNamed(
+                                          context, Routes.EDIT_PROFILE);
                                     },
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 16,),
+                              const SizedBox(
+                                height: 16,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("Logout"),
                                   FloatingActionButton.extended(
-                                    label: const Icon( // <-- Icon
+                                    label: const Icon(
+                                      // <-- Icon
                                       Icons.exit_to_app,
                                     ), // <-- Text
-                                    backgroundColor: COLOR_MAIN,
+                                    backgroundColor: Styles.COLOR_MAIN,
                                     onPressed: () {
-                                      Navigator.pushNamedAndRemoveUntil(context, Routes.ROOT, (route) => false);
+                                      Navigator.pushNamedAndRemoveUntil(context,
+                                          Routes.ROOT, (route) => false);
                                     },
                                   ),
                                 ],
@@ -307,39 +314,40 @@ class Constants {
                         color: Colors.white),
                     child: Expanded(
                         child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "About",
-                                  style: TextStyle(
-                                      color: Constants.COLOR_TEXT,
-                                      fontSize: 16,
-                                      fontFamily: 'GrilledCheese',
-                                      fontWeight: FontWeight.normal),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Icon(
-                                    Icons.cancel_outlined,
-                                    size: 32,
-                                    color: Constants.COLOR_MAIN_TEXT,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              "About",
+                              style: TextStyle(
+                                  color: Styles.COLOR_TEXT,
+                                  fontSize: 16,
+                                  fontFamily: 'GrilledCheese',
+                                  fontWeight: FontWeight.normal),
                             ),
-                            Expanded(
-                              child: ListView(
-                                children: [
-                                  Text(Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM)
-                                ],
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.cancel_outlined,
+                                size: 32,
+                                color: Styles.COLOR_MAIN_TEXT,
                               ),
                             ),
                           ],
-                        ))),
+                        ),
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              Text(
+                                  Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))),
               ),
             ),
           );

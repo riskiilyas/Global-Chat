@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../util/constants.dart';
 import '../util/routes.dart';
-import '../util/service_locator.dart';
+import '../util/styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,7 +32,7 @@ class _MyHomePageState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     checkLoggedIn();
     return Scaffold(
-        backgroundColor: Constants.COLOR_MAIN,
+        backgroundColor: Styles.COLOR_MAIN,
         body: SafeArea(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
@@ -70,23 +68,4 @@ class _MyHomePageState extends State<SplashScreen> {
           ),
         ));
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     // do something
-  //     // var prefs = ServiceLocator.prefs;
-  //     // prefs.then((value) {
-  //     //   if (value.getString(Constants.PREF_TOKEN) != null) {
-  //     //     Constants.popto(context, const HomeScreen());
-  //     //   }
-  //     // });
-  //
-  //     Future.delayed(1.5.seconds, () {
-  //       Navigator.of(context)
-  //           .pushNamedAndRemoveUntil(Routes.WELCOME, (_) => false);
-  //     });
-  //   });
-  // }
 }

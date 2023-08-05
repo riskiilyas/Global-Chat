@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
-import 'package:globalchat_flutter/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/login_notifier.dart';
@@ -9,6 +8,7 @@ import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
 import '../util/service_locator.dart';
+import '../util/styles.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
@@ -31,10 +31,12 @@ class _MyHomePageState extends State<LoginScreen> {
       if (status == FetchStatus.SUCCESS) {
         var data = context.read<LoginNotifier>().loginData!;
         ServiceLocator.prefs.then((pref) {
-          context.read<PrefNotifier>().addUser(data.username, data.email, password, data.avatarId, data.avatars, data.items, data.token);
+          context.read<PrefNotifier>().addUser(data.username, data.email,
+              password, data.avatarId, data.avatars, data.items, data.token);
           context.read<LoginNotifier>().init();
           Constants.showSnackbar(context, "Selamat datang ${data.username}!");
-          Navigator.pushNamedAndRemoveUntil(context, Routes.HOME, (route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.HOME, (route) => false);
         });
       } else if (status == FetchStatus.ERROR) {
         Constants.showSnackbar(context, context.read<LoginNotifier>().error);
@@ -55,33 +57,33 @@ class _MyHomePageState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Masuk',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
-                      color: Constants.COLOR_MAIN),
+                      color: Styles.COLOR_MAIN),
                 ),
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.arrow_back,
-                    color: Constants.COLOR_MAIN,
+                    color: Styles.COLOR_MAIN,
                   ),
                 )
               ],
             ),
-            const Divider(
-              color: Constants.COLOR_MAIN,
+            Divider(
+              color: Styles.COLOR_MAIN,
             ),
             const SizedBox(
               height: 8,
             ),
-            const Text(
+            Text(
               'Gunakan akun yang telah didaftarkan!',
-              style: TextStyle(color: Constants.COLOR_TEXT),
+              style: TextStyle(color: Styles.COLOR_TEXT),
             ),
             const SizedBox(
               height: 48,
@@ -121,31 +123,29 @@ class _MyHomePageState extends State<LoginScreen> {
             CustomButton(
                 text: "MASUK",
                 textColor: Colors.white,
-                buttonColor: Constants.COLOR_MAIN,
+                buttonColor: Styles.COLOR_MAIN,
                 onPressed: () {
-                print('oiasnfiouaesfnifesja');
-                          context.read<LoginNotifier>()
-                          .fetch(usernameOrEmail, password);
-                    }),
+                  context
+                      .read<LoginNotifier>()
+                      .fetch(usernameOrEmail, password);
+                }),
             const SizedBox(
               height: 12,
             ),
             Row(
               children: [
-                const Text(
+                Text(
                   'Belum Punya Akun? ',
-                  style: TextStyle(
-                      color: Constants.COLOR_HINT_TEXT, fontSize: 16),
+                  style: TextStyle(color: Styles.COLOR_HINT_TEXT, fontSize: 16),
                 ),
                 InkWell(
                   onTap: () => {
-                    Navigator.of(context)
-                        .pushReplacementNamed(Routes.REGISTER)
+                    Navigator.of(context).pushReplacementNamed(Routes.REGISTER)
                   },
-                  child: const Text(
+                  child: Text(
                     'Yuk Daftar!',
                     style: TextStyle(
-                        color: Constants.COLOR_MAIN,
+                        color: Styles.COLOR_MAIN,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
                   ),
@@ -155,8 +155,8 @@ class _MyHomePageState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: status == FetchStatus.LOADING
-                  ? const SpinKitFadingCircle(
-                      color: Constants.COLOR_MAIN,
+                  ? SpinKitFadingCircle(
+                      color: Styles.COLOR_MAIN,
                       size: 50.0,
                     )
                   : null,
@@ -167,9 +167,9 @@ class _MyHomePageState extends State<LoginScreen> {
     );
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   init();
-  // }
+// @override
+// void initState() {
+//   super.initState();
+//   init();
+// }
 }

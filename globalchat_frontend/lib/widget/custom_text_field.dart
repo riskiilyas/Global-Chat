@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/constants.dart';
+import '../util/styles.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hint;
@@ -28,7 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onChanged: widget.callback,
         decoration: InputDecoration(
             hintText: widget.hint,
-            hintStyle: const TextStyle(color: Constants.COLOR_HINT_TEXT),
+            hintStyle: TextStyle(color: Styles.COLOR_HINT_TEXT),
             prefixIcon: Icon(widget.icon),
             suffixIcon: widget.icon == Icons.password
                 ? IconButton(
@@ -41,7 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ? const Icon(Icons.visibility_off)
                         : const Icon(Icons.visibility))
                 : null,
-            border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Constants.COLOR_MAIN))));
+            border: OutlineInputBorder(
+                borderSide: BorderSide(color: Styles.COLOR_MAIN))));
   }
 }

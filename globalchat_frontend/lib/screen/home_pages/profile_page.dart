@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../util/constants.dart';
 import '../../util/routes.dart';
-import '../../widget/custom_button.dart';
+import '../../util/styles.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -41,15 +40,18 @@ class _ProfilPageState extends State<ProfilPage>
                   Positioned(
                     right: 0,
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushNamed(context, Routes.EDIT_PROFILE);
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(64),
                               color: Colors.green[100]),
-                          child: const Icon(Icons.edit_rounded, color: Colors.grey,)),
+                          child: const Icon(
+                            Icons.edit_rounded,
+                            color: Colors.grey,
+                          )),
                     ),
                   ),
                   Column(
@@ -64,22 +66,22 @@ class _ProfilPageState extends State<ProfilPage>
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
+                      Text(
                         "riski1351",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: Constants.COLOR_TITLE,
+                            color: Styles.COLOR_TITLE,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      const Text(
+                      Text(
                         'riskiilyas@gmail.com',
                         style: TextStyle(
-                            color: Constants.COLOR_TEXT,
+                            color: Styles.COLOR_TEXT,
                             fontSize: 10,
                             fontWeight: FontWeight.bold),
                       ),
@@ -89,17 +91,17 @@ class _ProfilPageState extends State<ProfilPage>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             "Lvl. 14",
                             style: TextStyle(
-                                color: Constants.COLOR_TEXT,
+                                color: Styles.COLOR_TEXT,
                                 fontWeight: FontWeight.bold),
                           ),
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 "19023",
-                                style: TextStyle(color: Constants.COLOR_TEXT),
+                                style: TextStyle(color: Styles.COLOR_TEXT),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -141,7 +143,7 @@ class _ProfilPageState extends State<ProfilPage>
                 child: Column(
                   children: [
                     Container(
-                      color: Constants.COLOR_MAIN,
+                      color: Styles.COLOR_MAIN,
                       height: 50,
                       child: TabBar(
                         onTap: (_) {

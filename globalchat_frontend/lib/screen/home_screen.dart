@@ -8,6 +8,7 @@ import 'package:globalchat_flutter/screen/home_pages/profile_page.dart';
 import 'package:globalchat_flutter/screen/home_pages/shop_page.dart';
 
 import '../util/constants.dart';
+import '../util/styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,13 +26,13 @@ class _MyHomePageState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constants.COLOR_BACKGROUND,
+      backgroundColor: Styles.COLOR_BACKGROUND,
       appBar: appbars[_index],
       body: pages[_index],
       bottomNavigationBar: AnimatedBottomNavigationBar(
         activeColor: Colors.white,
-        inactiveColor: Constants.COLOR_BACKGROUND,
-        backgroundColor: Constants.COLOR_MAIN,
+        inactiveColor: Styles.COLOR_BACKGROUND,
+        backgroundColor: Styles.COLOR_MAIN,
         leftCornerRadius: 32,
         rightCornerRadius: 32,
         gapLocation: GapLocation.none,
@@ -54,11 +55,11 @@ class _MyHomePageState extends State<HomeScreen> {
     pages.add(const ProfilPage());
 
     AppBar mainAppbar = AppBar(
-      iconTheme: const IconThemeData(
-        color: Constants.COLOR_MAIN, //change your color here
+      iconTheme: IconThemeData(
+        color: Styles.COLOR_MAIN, //change your color here
       ),
       automaticallyImplyLeading: false,
-      backgroundColor: Constants.COLOR_MAIN,
+      backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
         "assets/appbar.png",
@@ -105,7 +106,7 @@ class _MyHomePageState extends State<HomeScreen> {
                 Constants.showAboutDialog(context);
               } else if (value == 2) {
                 Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
-                  if(_) exit(0);
+                  if (_) exit(0);
                 });
               }
             }),
@@ -113,11 +114,11 @@ class _MyHomePageState extends State<HomeScreen> {
       ],
     );
     AppBar shopAppbar = AppBar(
-      iconTheme: const IconThemeData(
-        color: Constants.COLOR_MAIN, //change your color here
+      iconTheme: IconThemeData(
+        color: Styles.COLOR_MAIN, //change your color here
       ),
       automaticallyImplyLeading: false,
-      backgroundColor: Constants.COLOR_MAIN,
+      backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
         "assets/shop.png",
@@ -128,7 +129,7 @@ class _MyHomePageState extends State<HomeScreen> {
         Row(
           children: [
             const Text("19023"),
-            SizedBox(
+            const SizedBox(
               width: 4,
             ),
             CircleAvatar(
@@ -170,18 +171,19 @@ class _MyHomePageState extends State<HomeScreen> {
                 Constants.showAboutDialog(context);
               } else if (value == 2) {
                 Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
-                  if(_) exit(0);
-                });              }
+                  if (_) exit(0);
+                });
+              }
             }),
         // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
       ],
     );
     AppBar profileAppbar = AppBar(
-      iconTheme: const IconThemeData(
-        color: Constants.COLOR_MAIN, //change your color here
+      iconTheme: IconThemeData(
+        color: Styles.COLOR_MAIN, //change your color here
       ),
       automaticallyImplyLeading: false,
-      backgroundColor: Constants.COLOR_MAIN,
+      backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
         "assets/profile.png",
@@ -219,8 +221,9 @@ class _MyHomePageState extends State<HomeScreen> {
                 Constants.showAboutDialog(context);
               } else if (value == 2) {
                 Constants.showMyDialog(context, "Keluar dari Aplikasi?", (_) {
-                  if(_) exit(0);
-                });              }
+                  if (_) exit(0);
+                });
+              }
             }),
         // IconButton(icon: const Icon(Icons.location_city, color: Colors.white,), onPressed: () {}),
       ],
@@ -257,10 +260,10 @@ class _MyHomePageState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         "Online Users",
                         style: TextStyle(
-                            color: Constants.COLOR_TEXT,
+                            color: Styles.COLOR_TEXT,
                             fontSize: 16,
                             fontFamily: 'GrilledCheese',
                             fontWeight: FontWeight.normal),
@@ -269,10 +272,10 @@ class _MyHomePageState extends State<HomeScreen> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.cancel_outlined,
                           size: 32,
-                          color: Constants.COLOR_MAIN_TEXT,
+                          color: Styles.COLOR_MAIN_TEXT,
                         ),
                       ),
                     ],
@@ -305,10 +308,8 @@ class _MyHomePageState extends State<HomeScreen> {
                                                   Container(
                                                     width: 20.0,
                                                     height: 20.0,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color:
-                                                          Constants.COLOR_MAIN,
+                                                    decoration: BoxDecoration(
+                                                      color: Styles.COLOR_MAIN,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -325,7 +326,7 @@ class _MyHomePageState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ),
-                                      Divider()
+                                      const Divider()
                                     ],
                                   )))),
                 ]),

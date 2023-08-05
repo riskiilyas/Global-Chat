@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/constants.dart';
+import '../util/styles.dart';
 
 class MeChatWidget extends StatelessWidget {
   final int avatar;
@@ -24,7 +24,7 @@ class MeChatWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Constants.COLOR_TEXT_BACKGROUND),
+              color: Styles.COLOR_TEXT_BACKGROUND),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -32,16 +32,16 @@ class MeChatWidget extends StatelessWidget {
                 children: [
                   Text(
                     time,
-                    style: const TextStyle(color: Constants.COLOR_HINT_TEXT),
+                    style: TextStyle(color: Styles.COLOR_HINT_TEXT),
                     textAlign: TextAlign.end,
                   ),
                   Expanded(
                     child: Text(
                       username,
                       textAlign: TextAlign.end,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Constants.COLOR_TEXT),
+                          color: Styles.COLOR_TEXT),
                     ),
                   ),
                   const SizedBox(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/constants.dart';
+import '../util/styles.dart';
 
 class UserChatWidget extends StatelessWidget {
   final int avatar;
@@ -26,7 +26,7 @@ class UserChatWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Constants.COLOR_TEXT_BACKGROUND),
+              color: Styles.COLOR_TEXT_BACKGROUND),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,14 +46,14 @@ class UserChatWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                       username,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Constants.COLOR_TEXT),
+                          color: Styles.COLOR_TEXT),
                     ),
                   ),
                   Text(
                     time,
-                    style: const TextStyle(color: Constants.COLOR_HINT_TEXT),
+                    style: TextStyle(color: Styles.COLOR_HINT_TEXT),
                     textAlign: TextAlign.end,
                   )
                 ],

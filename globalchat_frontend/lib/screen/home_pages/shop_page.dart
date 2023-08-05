@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../util/constants.dart';
-import '../../widget/custom_button.dart';
-
 class ShopPage extends StatefulWidget {
   const ShopPage({Key? key}) : super(key: key);
 
@@ -29,9 +26,17 @@ class _ProfilPageState extends State<ShopPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset("assets/maintenance.png",height: 180,),
-          SizedBox(height: 12,),
-          Text("Coming Soon...", textAlign: TextAlign.center,)
+          Image.asset(
+            "assets/maintenance.png",
+            height: 180,
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          const Text(
+            "Coming Soon...",
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );

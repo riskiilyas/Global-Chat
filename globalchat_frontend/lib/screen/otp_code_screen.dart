@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:globalchat_flutter/notifier/pref_notifier.dart';
-import 'package:globalchat_flutter/screen/home_screen.dart';
-import 'package:provider/provider.dart';
-
-import '../notifier/login_notifier.dart';
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
-import '../util/service_locator.dart';
+import '../util/styles.dart';
 import '../widget/custom_button.dart';
-import '../widget/custom_text_field.dart';
 
 class OtpCodeScreen extends StatefulWidget {
   const OtpCodeScreen({super.key});
@@ -49,98 +43,101 @@ class _MyHomePageState extends State<OtpCodeScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-            child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        child: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Kode OTP',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Constants.COLOR_MAIN),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Constants.COLOR_MAIN,
-                      ),
-                    )
-                  ],
+                Text(
+                  'Kode OTP',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Styles.COLOR_MAIN),
                 ),
-                const Divider(
-                  color: Constants.COLOR_MAIN,
-                ),
-                const SizedBox(
-                  height: 48,
-                ),
-                Center(
-                  child: SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/otp.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 48,
-                ),
-                OtpTextField(
-                  numberOfFields: 4,
-                  borderColor: Constants.COLOR_MAIN,
-                  focusedBorderColor: Constants.COLOR_MAIN,
-                  showFieldAsBox: true,
-                  styles: List.generate(4, (index) => TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  onCodeChanged: (String code) {
-                    //handle validation or checks here
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
                   },
-                  //runs when every textfield is filled
-                  onSubmit: (String verificationCode){
-                    showDialog(
-                        context: context,
-                        builder: (context){
-                          return AlertDialog(
-                            title: Text("Verification Code"),
-                            content: Text('Code entered is $verificationCode'),
-                          );
-                        }
-                    );
-                  }, // end onSubmit
-                ),
-                const SizedBox(
-                  height: 48,
-                ),
-                CustomButton(
-                    text: "KIRIM KODE OTP",
-                    textColor: Colors.white,
-                    buttonColor: Constants.COLOR_MAIN,
-                    onPressed: () {
-                      Constants.showSnackbar(context, "Password Berhasil Diubah!");
-                      Navigator.pushNamedAndRemoveUntil(context, Routes.WELCOME, (route) => false);
-                      // context.read<LoginNotifier>()
-                      //     .fetch(usernameOrEmail, password);
-                    }),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: status == FetchStatus.LOADING
-                      ? const SpinKitFadingCircle(
-                    color: Constants.COLOR_MAIN,
-                    size: 50.0,
-                  )
-                      : null,
-                ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Styles.COLOR_MAIN,
+                  ),
+                )
               ],
             ),
-          )),
+            Divider(
+              color: Styles.COLOR_MAIN,
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+            Center(
+              child: SizedBox(
+                height: 200,
+                child: Image.asset(
+                  'assets/otp.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+            OtpTextField(
+              numberOfFields: 4,
+              borderColor: Styles.COLOR_MAIN,
+              focusedBorderColor: Styles.COLOR_MAIN,
+              showFieldAsBox: true,
+              styles: List.generate(
+                  4,
+                  (index) => const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 24)),
+              onCodeChanged: (String code) {
+                //handle validation or checks here
+              },
+              //runs when every textfield is filled
+              onSubmit: (String verificationCode) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Verification Code"),
+                        content: Text('Code entered is $verificationCode'),
+                      );
+                    });
+              }, // end onSubmit
+            ),
+            const SizedBox(
+              height: 48,
+            ),
+            CustomButton(
+                text: "KIRIM KODE OTP",
+                textColor: Colors.white,
+                buttonColor: Styles.COLOR_MAIN,
+                onPressed: () {
+                  Constants.showSnackbar(context, "Password Berhasil Diubah!");
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, Routes.WELCOME, (route) => false);
+                  // context.read<LoginNotifier>()
+                  //     .fetch(usernameOrEmail, password);
+                }),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: status == FetchStatus.LOADING
+                  ? SpinKitFadingCircle(
+                      color: Styles.COLOR_MAIN,
+                      size: 50.0,
+                    )
+                  : null,
+            ),
+          ],
+        ),
+      )),
     );
   }
 

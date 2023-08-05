@@ -6,6 +6,7 @@ import '../notifier/register_notifier.dart';
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
 import '../util/routes.dart';
+import '../util/styles.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
 
@@ -54,33 +55,33 @@ class _MyHomePageState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Daftar',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
-                          color: Constants.COLOR_MAIN),
+                          color: Styles.COLOR_MAIN),
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back,
-                        color: Constants.COLOR_MAIN,
+                        color: Styles.COLOR_MAIN,
                       ),
                     )
                   ],
                 ),
-                const Divider(
-                  color: Constants.COLOR_MAIN,
+                Divider(
+                  color: Styles.COLOR_MAIN,
                 ),
                 const SizedBox(
                   height: 4,
                 ),
-                const Text(
+                Text(
                   'Yuk segera daftarkan dirimu!',
-                  style: TextStyle(color: Constants.COLOR_TEXT),
+                  style: TextStyle(color: Styles.COLOR_TEXT),
                 ),
                 const SizedBox(
                   height: 20,
@@ -100,17 +101,17 @@ class _MyHomePageState extends State<RegisterScreen> {
                       children: [
                         CircleAvatar(
                           foregroundImage: Image.asset(
-                            "assets/avatars/${avatar}.png",
+                            "assets/avatars/$avatar.png",
                           ).image,
                           maxRadius: 80,
                         ),
-                        const Positioned(
+                        Positioned(
                           bottom: 0,
                           right: 0,
                           child: Icon(
                             Icons.image,
                             size: 32,
-                            color: Constants.COLOR_MAIN_TEXT,
+                            color: Styles.COLOR_MAIN_TEXT,
                           ),
                         )
                       ],
@@ -156,7 +157,7 @@ class _MyHomePageState extends State<RegisterScreen> {
                     ? CustomButton(
                         text: "DAFTAR",
                         textColor: Colors.white,
-                        buttonColor: Constants.COLOR_MAIN,
+                        buttonColor: Styles.COLOR_MAIN,
                         onPressed: () {
                           if (checkForm()) {
                             context.read<RegisterNotifier>().fetch(username,
@@ -168,8 +169,8 @@ class _MyHomePageState extends State<RegisterScreen> {
                           // context.read<RegisterNotifier>().fetch(fullname,
                           //     username, email, password, confirmPassword);
                         })
-                    : const SpinKitFadingCircle(
-                        color: Constants.COLOR_MAIN,
+                    : SpinKitFadingCircle(
+                        color: Styles.COLOR_MAIN,
                         size: 50.0,
                       ),
                 const SizedBox(
@@ -177,19 +178,19 @@ class _MyHomePageState extends State<RegisterScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       'Sudah Punya Akun? ',
                       style: TextStyle(
-                          color: Constants.COLOR_HINT_TEXT, fontSize: 16),
+                          color: Styles.COLOR_HINT_TEXT, fontSize: 16),
                     ),
                     InkWell(
                       onTap: () => {
                         Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
                       },
-                      child: const Text(
+                      child: Text(
                         'Masuk',
                         style: TextStyle(
-                            color: Constants.COLOR_MAIN,
+                            color: Styles.COLOR_MAIN,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),

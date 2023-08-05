@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:provider/provider.dart';
-import '../../util/constants.dart';
+import '../../util/styles.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -31,10 +31,10 @@ class _ChatPageState extends State<ChatPage> {
     init();
     return SafeArea(
       child: Container(
-        color: Constants.COLOR_BACKGROUND,
+        color: Styles.COLOR_BACKGROUND,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         child: RefreshIndicator(
-          color: Constants.COLOR_MAIN,
+          color: Styles.COLOR_MAIN,
           onRefresh: () {
             return Future(() => null);
             // return ServiceLocator.prefs.then((pref) {
@@ -54,16 +54,16 @@ class _ChatPageState extends State<ChatPage> {
                     maxLines: 5,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Constants.COLOR_TEXT_BACKGROUND,
+                      fillColor: Styles.COLOR_TEXT_BACKGROUND,
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(64),
-                        borderSide: const BorderSide(
-                            color: Constants.COLOR_TEXT_BACKGROUND, width: 1.0),
+                        borderSide: BorderSide(
+                            color: Styles.COLOR_TEXT_BACKGROUND, width: 1.0),
                       ),
-                      enabledBorder:OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(64),
-                        borderSide: const BorderSide(
-                            color: Constants.COLOR_TEXT_BACKGROUND, width: 1.0),
+                        borderSide: BorderSide(
+                            color: Styles.COLOR_TEXT_BACKGROUND, width: 1.0),
                       ),
                       hintText: 'Tuliskan Pesan Anda....',
                     ),
@@ -78,7 +78,7 @@ class _ChatPageState extends State<ChatPage> {
                       borderRadius: const BorderRadius.all(Radius.circular(32)),
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Constants.COLOR_MAIN,
+                              color: Styles.COLOR_MAIN,
                               borderRadius: BorderRadius.circular(64)),
                           child: const Padding(
                             padding: EdgeInsets.all(10.0),
