@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/util/app_localization.dart';
+import 'package:globalchat_flutter/util/constants.dart';
 import 'package:globalchat_flutter/util/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -31,12 +34,31 @@ class MyApp extends StatelessWidget {
     context.watch<ThemeNotifier>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Global Chat',
+      title: Constants.APP_NAME,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
       initialRoute: Routes.ROOT,
       onGenerateRoute: Routes.generateRoute,
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('id')
+      ],
+      localeResolutionCallback: (deviceLocale, supportedLocales) {
+        for (var locale in supportedLocales) {
+          if (locale.languageCode == deviceLocale!.languageCode &&
+              locale.countryCode == deviceLocale.countryCode) {
+            return deviceLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        AppLocalization.delegate
+      ],
     );
   }
 }

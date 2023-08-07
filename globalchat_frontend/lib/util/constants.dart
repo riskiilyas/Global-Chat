@@ -1,4 +1,8 @@
 class Constants {
+  // CONFIGS
+  static const APP_NAME = "Global Chat";
+
+  // SHARED PREFERENCE
   static const PREF_USERNAME = "username";
   static const PREF_PASSWORD = "password";
   static const PREF_EMAIL = "email";
@@ -8,4 +12,10 @@ class Constants {
   static const PREF_TOKEN = "token";
   static const PREF_DARK_MODE = "dark_mode";
   static const PREF_ENG_LANG = "eng_lang";
+
+  // LANGUANGE
+  static const CONFIRM_PRIVACY = "confirm_privacy";
+  static const LOGIN = "login";
+  static const REGISTER = "register";
+  static const FORGOT_PASSWORD = "forgot_password";
 }

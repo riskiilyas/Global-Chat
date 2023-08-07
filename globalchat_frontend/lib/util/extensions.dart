@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/util/app_localization.dart';
 import 'package:provider/provider.dart';
 
 import '../notifier/login_notifier.dart';
@@ -46,5 +47,9 @@ extension Notifier on BuildContext {
 
   T _notifier<T extends ChangeNotifier>() {
     return read<T>();
+  }
+
+  String txt(String key) {
+    return AppLocalization.of(this).getTranslate(key).toString();
   }
 }

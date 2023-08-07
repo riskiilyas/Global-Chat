@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 
+import '../util/constants.dart';
 import '../util/routes.dart';
 import '../util/styles.dart';
 import '../widget/custom_button.dart';
@@ -29,7 +31,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                         child: SizedBox(
                           width: 200,
                           child: Image.asset(
-                            'assets/appbar.png',
+                            'assets/imgs/appbar.png',
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -40,7 +42,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                       Column(
                         children: [
                           CustomButton(
-                              text: "Masuk",
+                              text: Constants.LOGIN,
                               width: 200,
                               textColor: Styles.COLOR_BACKGROUND_2,
                               buttonColor: Styles.COLOR_MAIN_TEXT,
@@ -52,7 +54,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                             height: 12,
                           ),
                           CustomButton(
-                              text: "Daftar",
+                              text: Constants.REGISTER,
                               width: 200,
                               textColor: Styles.COLOR_MAIN,
                               buttonColor: Colors.white,
@@ -71,8 +73,8 @@ class _MyHomePageState extends State<WelcomeScreen> {
                                   Navigator.pushNamed(
                                       context, Routes.FORGOT_PASSWORD);
                                 },
-                                child: const Text(
-                                  "Lupa Password?",
+                                child: Text(
+                                  context.txt(Constants.FORGOT_PASSWORD),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -86,10 +88,10 @@ class _MyHomePageState extends State<WelcomeScreen> {
                     ],
                   ),
                 ),
-                const Text(
-                  "Dengan melanjutkan, Anda dianggap telah menyetujui Ketentuan  Penggunaan dan Kebijakan Privasi",
+                Text(
+                  context.txt(Constants.CONFIRM_PRIVACY),
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 )
               ],
             ),

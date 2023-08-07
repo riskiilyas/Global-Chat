@@ -23,7 +23,7 @@ class _MyHomePageState extends State<SplashScreen> {
         if (token.isNotEmpty) {
           Navigator.pushReplacementNamed(context, Routes.HOME);
         } else {
-          Navigator.pushReplacementNamed(context, Routes.HOME);
+          Navigator.pushReplacementNamed(context, Routes.WELCOME);
         }
       });
     });
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<SplashScreen> {
                           child: SizedBox(
                             width: 200,
                             child: Image.asset(
-                              'assets/appbar.png',
+                              'assets/imgs/appbar.png',
                               fit: BoxFit.fill,
                             ),
                           ),
