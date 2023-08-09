@@ -7,4 +7,6 @@ object Constants {
     const val MESSAGE_EVENT = "message_event"
     const val JOIN_EVENT = "user_join"
     const val SUCCESS_EVENT = "success"
+
+    // ROUTES
 }
