@@ -1,16 +1,16 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:globalchat_flutter/model/io/Message.dart';
+import 'package:globalchat_flutter/model/io/User.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:globalchat_flutter/widget/user_chat_widget.dart';
+import 'package:globalchat_flutter/widget/user_joined_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:stomp_dart_client/stomp.dart';
-import 'package:stomp_dart_client/stomp_config.dart';
+import '../../util/event_status.dart';
 import '../../util/styles.dart';
+import '../../widget/me_chat_widget.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage({Key? key}) : super(key: key);
@@ -21,15 +21,22 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   var name = "";
-  List<String> msg = [];
+  TextEditingController controller = TextEditingController();
+  List<Message> msg = [];
 
   void init() async {
     final username = context.read<PrefNotifier>().username;
     final avatarId = context.read<PrefNotifier>().avatarId;
     context.watch<ThemeNotifier>();
     context.watch<ChatNotifier>().init(username, avatarId);
-    msg.clear();
-    msg.addAll(context.read<ChatNotifier>().msg);
+    msg = context.read<ChatNotifier>().chats;
+    final status = context.read<ChatNotifier>().status;
+
+    if(status == EventStatus.JOINED) {
+      context.showSnackbar("Joined the server!");
+    } else if(status == EventStatus.SENT_CHAT) {
+      context.showSnackbar("Joined the server!");
+    }
   }
 
   @override
@@ -43,25 +50,42 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
                 child: SingleChildScrollView(
                     child: Column(
-                      // children: [
-                      //   UserJoinedWidget(user: "aasefsf")
-                      // ],
-              children: List.generate(
-                  msg.length, (index) {
-                    final chat = jsonDecode(msg[index]);
-                    final model = Chat.fromJson(chat);
-                    return UserChatWidget(avatar: model.avatarId, username:
-                    model.username,
-                    msg: model.message, time: "", onUserClicked: (_){});
+              children: List.generate(msg.length, (index) {
+                final username = context.prefNotifier.username;
+                if (msg[index] is Chat) {
+                  final _ = msg[index] as Chat;
+                  if(_.username==username) {
+                    return MeChatWidget(
+                        avatar: _.avatarId,
+                        username: _.username,
+                        msg: _.message,
+                        time: "",);
+                  }
+                  return UserChatWidget(
+                      avatar: _.avatarId,
+                      username: _.username,
+                      msg: _.message,
+                      time: "",
+                      onUserClicked: (_) {});
+                } else if (msg[index] is User) {
+                  final _ = msg[index] as User;
+                  return UserJoinedWidget(user: _.username);
+                } else if (msg[index] is Sticker) {
+                  final _ = msg[index] as Sticker;
+                  return const SizedBox();
+                } else {
+                  return const SizedBox();
+                }
               }),
             ))),
             Row(
               children: [
                 Expanded(
                   child: TextField(
+                    controller: controller,
                     minLines: 1,
                     maxLines: 5,
-                    onChanged: (_) => name = _,
+                    onChanged: (_) => name= _,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Styles.COLOR_TEXT_BACKGROUND,
@@ -84,6 +108,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 InkWell(
                   onTap: () {
+                    controller.clear();
                     context.read<ChatNotifier>().sendMessage(name);
                   },
                   child: Material(

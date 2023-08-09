@@ -9,26 +9,31 @@ class UserJoinedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-            color: Styles.COLOR_TEXT_BACKGROUND,
-            borderRadius: BorderRadius.circular(16)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              user,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Styles.COLOR_TEXT),
-            ),
-            Text(
-              " Joined the Chat",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Styles.COLOR_HINT_TEXT),
-            ),
-          ],
-        ));
+    return Column(
+      children: [
+        Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Styles.COLOR_TEXT_BACKGROUND,
+                borderRadius: BorderRadius.circular(16)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  user,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Styles.COLOR_TEXT),
+                ),
+                Text(
+                  " Joined the Chat",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Styles.COLOR_HINT_TEXT),
+                ),
+              ],
+            )),
+        const SizedBox(height: 8,),
+      ],
+    );
   }
 }
