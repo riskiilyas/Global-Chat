@@ -76,7 +76,7 @@ class _MyHomePageState extends State<ForgotPasswordScreen> {
               child: SizedBox(
                 height: 200,
                 child: Image.asset(
-                  'assets/forgot.png',
+                  'assets/imgs/forgot.png',
                   fit: BoxFit.fill,
                 ),
               ),

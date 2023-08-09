@@ -26,7 +26,7 @@ class _ShopAppBarState extends State<ShopAppBar> {
       backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
-        "assets/shop.png",
+        "assets/imgs/shop.png",
         fit: BoxFit.contain,
         height: 36,
       ),

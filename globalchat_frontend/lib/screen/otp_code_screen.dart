@@ -77,7 +77,7 @@ class _MyHomePageState extends State<OtpCodeScreen> {
               child: SizedBox(
                 height: 200,
                 child: Image.asset(
-                  'assets/otp.png',
+                  'assets/imgs/otp.png',
                   fit: BoxFit.fill,
                 ),
               ),

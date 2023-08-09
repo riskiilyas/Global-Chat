@@ -55,7 +55,7 @@ class _MyHomePageState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    pages.add(const ChatPage());
+    pages.add( ChatPage());
     pages.add(const ShopPage());
     pages.add(const ProfilPage());
 

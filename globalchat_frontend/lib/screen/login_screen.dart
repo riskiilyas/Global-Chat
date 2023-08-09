@@ -92,7 +92,7 @@ class _MyHomePageState extends State<LoginScreen> {
               child: SizedBox(
                 height: 200,
                 child: Image.asset(
-                  'assets/regis.png',
+                  'assets/imgs/regis.png',
                   fit: BoxFit.fill,
                 ),
               ),

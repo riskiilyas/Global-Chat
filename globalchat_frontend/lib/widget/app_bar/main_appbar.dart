@@ -29,7 +29,7 @@ class _MainAppBarState extends State<MainAppBar> {
       backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
-        "assets/appbar.png",
+        "assets/imgs/appbar.png",
         fit: BoxFit.contain,
         height: 36,
       ),

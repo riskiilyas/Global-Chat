@@ -26,7 +26,7 @@ class _ProfileAppBarState extends State<ProfileAppBar> {
       backgroundColor: Styles.COLOR_MAIN,
       centerTitle: false,
       title: Image.asset(
-        "assets/profile.png",
+        "assets/imgs/profile.png",
         fit: BoxFit.contain,
         height: 36,
       ),
