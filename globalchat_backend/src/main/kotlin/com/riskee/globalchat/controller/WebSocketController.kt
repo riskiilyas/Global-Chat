@@ -1,14 +1,18 @@
 package com.riskee.globalchat.controller
 
+import com.riskee.globalchat.service.MessageService
 import com.riskee.globalchat.service.UserDisconnectService
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.stereotype.Controller
 import java.lang.StringBuilder
 
+@EnableScheduling
 @Controller
 class WebSocketController(
+    messageService: MessageService,
     userDisconnectService: UserDisconnectService
 ) {
     private val onlineUsers = mutableMapOf<String, String>()

@@ -7,7 +7,7 @@ import jakarta.persistence.*
 data class User(
     @Id
     @Column(name = USERNAME)
-    val username: String,
+    var username: String,
 
     @Column(name = EMAIL)
     val email: String,
@@ -16,7 +16,7 @@ data class User(
     val password: String,
 
     @Column(name = AVATAR_ID)
-    val avatarId: Int = 2,
+    var avatarId: Int = 2,
 
     @Column(name = LEVEL)
     val level: Int = 1,

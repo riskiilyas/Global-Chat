@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessageService(private val messagingTemplate: SimpMessagingTemplate) {
-    fun pingUsers(message: String?) {
-        messagingTemplate.convertAndSend("/ping", message!!)
+    fun sendRandomQuestion(message: String?) {
+        messagingTemplate.convertAndSend("topic/ping", message!!)
     }
 }
