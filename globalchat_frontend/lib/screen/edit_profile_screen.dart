@@ -109,15 +109,9 @@ class _MyHomePageState extends State<EditProfileScreen> {
                         textColor: Colors.white,
                         buttonColor: Styles.COLOR_MAIN,
                         onPressed: () {
-                          // if (checkForm()) {
-                          //   context.read<RegisterNotifier>().fetch(username,
-                          //       email, password, confirmPassword, avatar);
-                          // } else {
-                          //   Constants.showSnackbar(
-                          //       context, "Please Fill the form first!");
-                          // }
-                          // // context.read<RegisterNotifier>().fetch(fullname,
-                          //     username, email, password, confirmPassword);
+                          if(username.isNotEmpty) {
+
+                          }
                         })
                     : SpinKitFadingCircle(
                         color: Styles.COLOR_MAIN,

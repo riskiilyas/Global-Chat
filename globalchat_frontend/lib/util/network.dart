@@ -73,7 +73,29 @@ class Network {
       },
     );
 
-    print(response.body.toString());
+    try {
+      return LoginWithTokenResponse.fromJson(json.decode(response.body));
+    } catch (e) {
+      final errorResponse = ErrorResponse.fromJson(json.decode(response.body));
+      throw Exception(errorResponse.message);
+    }
+  }
+
+  Future<LoginWithTokenResponse> editProfile(token, username, avatarId) async {
+    var baseurl = dotenv.env['BASE_URL'] ?? "http://localhost:8080";
+
+    final response = await http.Client().patch(
+      Uri.parse("$baseurl/me"),
+      headers: <String, String>{
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "username": username,
+        "avatarId": avatarId,
+      }),
+    );
 
     try {
       return LoginWithTokenResponse.fromJson(json.decode(response.body));

@@ -26,6 +26,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextField(
         obscureText: widget.icon == Icons.password && isHide ? true : false,
         onChanged: widget.callback,
+        style: TextStyle(color: Styles.COLOR_TEXT),
         decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: TextStyle(color: Styles.COLOR_HINT_TEXT),

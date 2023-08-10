@@ -5,6 +5,7 @@ import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/util/extensions.dart';
+import 'package:globalchat_flutter/widget/arrow_down_button.dart';
 import 'package:globalchat_flutter/widget/user_chat_widget.dart';
 import 'package:globalchat_flutter/widget/user_joined_widget.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class _ChatPageState extends State<ChatPage> {
   var name = "";
   TextEditingController controller = TextEditingController();
   List<Message> msg = [];
+  final _controller = ScrollController();
+  bool isBottom = false;
 
   void init() async {
     final username = context.read<PrefNotifier>().username;
@@ -32,52 +35,74 @@ class _ChatPageState extends State<ChatPage> {
     msg = context.read<ChatNotifier>().chats;
     final status = context.read<ChatNotifier>().status;
 
-    if(status == EventStatus.JOINED) {
+    if (status == EventStatus.JOINED) {
       context.showSnackbar("Joined the server!");
-    } else if(status == EventStatus.SENT_CHAT) {
+    } else if (status == EventStatus.SENT_CHAT) {
       context.showSnackbar("Joined the server!");
+    }
+  }
+
+  void checkForAutoScroll() {
+    if (!_controller.hasClients) return;
+    if (_controller.position.atEdge) {
+      isBottom = _controller.position.pixels != 0;
+      if (isBottom) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _controller.jumpTo(_controller.position.maxScrollExtent);
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     init();
+    checkForAutoScroll();
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Expanded(
-                child: SingleChildScrollView(
+                child: Stack(
+              children: [
+                SingleChildScrollView(
+                    controller: _controller,
                     child: Column(
-              children: List.generate(msg.length, (index) {
-                final username = context.prefNotifier.username;
-                if (msg[index] is Chat) {
-                  final _ = msg[index] as Chat;
-                  if(_.username==username) {
-                    return MeChatWidget(
-                        avatar: _.avatarId,
-                        username: _.username,
-                        msg: _.message,
-                        time: "",);
-                  }
-                  return UserChatWidget(
-                      avatar: _.avatarId,
-                      username: _.username,
-                      msg: _.message,
-                      time: "",
-                      onUserClicked: (_) {});
-                } else if (msg[index] is OnlineUser) {
-                  final _ = msg[index] as OnlineUser;
-                  return UserJoinedWidget(user: _.username);
-                } else if (msg[index] is Sticker) {
-                  final _ = msg[index] as Sticker;
-                  return const SizedBox();
-                } else {
-                  return const SizedBox();
-                }
-              }),
-            ))),
+                      children: List.generate(msg.length, (index) {
+                        final username = context.prefNotifier.username;
+                        if (msg[index] is Chat) {
+                          final _ = msg[index] as Chat;
+                          if (_.username == username) {
+                            return MeChatWidget(
+                              avatar: _.avatarId,
+                              username: _.username,
+                              msg: _.message,
+                              time: "",
+                            );
+                          }
+                          return UserChatWidget(
+                              avatar: _.avatarId,
+                              username: _.username,
+                              msg: _.message,
+                              time: "",
+                              onUserClicked: (_) {});
+                        } else if (msg[index] is OnlineUser) {
+                          final _ = msg[index] as OnlineUser;
+                          return UserJoinedWidget(user: _.username);
+                        } else if (msg[index] is Sticker) {
+                          final _ = msg[index] as Sticker;
+                          return const SizedBox();
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
+                    )),
+                Positioned(
+                    bottom: 10,right: 0,
+                    child: ArrowDownButton(controller: _controller)),
+              ],
+            )),
             Row(
               children: [
                 Expanded(
@@ -86,7 +111,7 @@ class _ChatPageState extends State<ChatPage> {
                     minLines: 1,
                     maxLines: 5,
                     style: TextStyle(color: Styles.COLOR_TEXT),
-                    onChanged: (_) => name= _,
+                    onChanged: (_) => name = _,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Styles.COLOR_TEXT_BACKGROUND,

@@ -64,7 +64,7 @@ class MeChatWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                Positioned(bottom: -8,right: -5,child: CircleAvatar(
+                Positioned(bottom: -8,right: 0,child: CircleAvatar(
                   radius: 12,
                     foregroundImage:
                     Image.asset("assets/avatars/$avatar.png").image),)

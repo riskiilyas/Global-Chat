@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/constants.dart';
 import '../util/fetch_status.dart';
+import '../util/network.dart';
 import '../util/service_locator.dart';
 
 class PrefNotifier with ChangeNotifier {
@@ -22,6 +23,7 @@ class PrefNotifier with ChangeNotifier {
   SharedPreferences? _pref;
 
   FetchStatus get status => _status;
+  Network network = ServiceLocator.network;
 
   String get username => _username;
   String get email => _email;
@@ -81,6 +83,22 @@ class PrefNotifier with ChangeNotifier {
     _status = FetchStatus.SUCCESS;
     return;
   }
+
+  // Future<bool> updateProfile(token, username, avatarId) async {
+  //   _status = FetchStatus.LOADING;
+  //   try {
+  //     var response = await network.loginWithToken(token);
+  //     if(response.status>=400) throw Exception(response.message);
+  //
+  //     _status = FetchStatus.SUCCESS;
+  //     loginData = response.data;
+  //     return true;
+  //   } catch (e) {
+  //     _status = FetchStatus.ERROR;
+  //     error = e.toString();
+  //     return false;
+  //   }
+  // }
 
   Future<void> clearUser() async {
     await _pref!.clear();

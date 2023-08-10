@@ -35,7 +35,7 @@ class UserChatWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       color: Styles.COLOR_TEXT_BACKGROUND),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Wrap(
                         // mainAxisAlignment: MainAxisAlignment.end,
@@ -65,7 +65,7 @@ class UserChatWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                Positioned(bottom: -8,left: -5,child: CircleAvatar(
+                Positioned(bottom: -8,left: 0,child: CircleAvatar(
                     radius: 12,
                     foregroundImage:
                     Image.asset("assets/avatars/$avatar.png").image),)
@@ -75,7 +75,7 @@ class UserChatWidget extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 12,
         )
       ],
     );
