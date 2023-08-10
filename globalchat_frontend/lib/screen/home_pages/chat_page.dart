@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/model/io/Message.dart';
-import 'package:globalchat_flutter/model/io/User.dart';
+import 'package:globalchat_flutter/model/io/OnlineUser.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
@@ -67,8 +67,8 @@ class _ChatPageState extends State<ChatPage> {
                       msg: _.message,
                       time: "",
                       onUserClicked: (_) {});
-                } else if (msg[index] is User) {
-                  final _ = msg[index] as User;
+                } else if (msg[index] is OnlineUser) {
+                  final _ = msg[index] as OnlineUser;
                   return UserJoinedWidget(user: _.username);
                 } else if (msg[index] is Sticker) {
                   final _ = msg[index] as Sticker;

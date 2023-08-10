@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
+import '../../notifier/chat_notifier.dart';
 import '../../util/dialogs.dart';
 import '../../util/styles.dart';
 
@@ -40,6 +41,7 @@ class _MainAppBarState extends State<MainAppBar> {
               color: Colors.white,
             ),
             onPressed: () {
+              context.read<ChatNotifier>().checkOnlineUsers();
               Dialogs.showOnlineUsers(context);
             }),
         PopupMenuButton(

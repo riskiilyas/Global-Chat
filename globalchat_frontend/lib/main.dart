@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:globalchat_flutter/notifier/chat_notifier.dart';
+import 'package:globalchat_flutter/notifier/login_with_token_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/util/app_localization.dart';
@@ -19,6 +20,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => RegisterNotifier()),
     ChangeNotifierProvider(create: (_) => LoginNotifier()),
+    ChangeNotifierProvider(create: (_) => LoginWithTokenNotifier()),
     ChangeNotifierProvider(create: (_) => PrefNotifier()),
     ChangeNotifierProvider(create: (_) => ChatNotifier()),
     ChangeNotifierProvider(create: (_) => ThemeNotifier()),

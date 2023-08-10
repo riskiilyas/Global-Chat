@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/util/routes.dart';
 import 'package:globalchat_flutter/util/styles.dart';
 import 'package:globalchat_flutter/widget/user_item.dart';
@@ -400,10 +401,12 @@ class Dialogs {
                   Expanded(
                       child: ListView(
                           children: List.generate(
-                              10,
+                              context.read<ChatNotifier>().onlineUsers.length,
                               (index) => UserItem(
-                                  avatarId: index,
-                                  username: "User$index",
+                                  avatarId: context.read<ChatNotifier>()
+                                      .onlineUsers[index].avatarId,
+                                  username: context.read<ChatNotifier>()
+                                      .onlineUsers[index].username,
                                   onClicked: (_) {})))),
                 ]),
               ),

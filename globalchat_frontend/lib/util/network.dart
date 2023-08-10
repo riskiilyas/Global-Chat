@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:globalchat_flutter/model/response/ErrorResponse.dart';
+import 'package:globalchat_flutter/model/response/login_with_token/LoginWithTokenResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -38,7 +39,6 @@ class Network {
 
   Future<LoginResponse> login(email, password) async {
     var baseurl = dotenv.env['BASE_URL'] ?? "http://localhost:8080";
-    print(email + password + "  $baseurl/auth/login");
 
     final response = await http.Client().post(
       Uri.parse("$baseurl/auth/login"),
@@ -56,6 +56,27 @@ class Network {
 
     try {
       return LoginResponse.fromJson(json.decode(response.body));
+    } catch (e) {
+      final errorResponse = ErrorResponse.fromJson(json.decode(response.body));
+      throw Exception(errorResponse.message);
+    }
+  }
+
+  Future<LoginWithTokenResponse> loginWithToken(token) async {
+    var baseurl = dotenv.env['BASE_URL'] ?? "http://localhost:8080";
+
+    final response = await http.Client().get(
+      Uri.parse("$baseurl/me"),
+      headers: <String, String>{
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    print(response.body.toString());
+
+    try {
+      return LoginWithTokenResponse.fromJson(json.decode(response.body));
     } catch (e) {
       final errorResponse = ErrorResponse.fromJson(json.decode(response.body));
       throw Exception(errorResponse.message);

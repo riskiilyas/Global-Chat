@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:globalchat_flutter/model/io/Message.dart';
-import 'package:globalchat_flutter/model/io/User.dart';
 import 'package:globalchat_flutter/util/event_status.dart';
+import 'package:neat_periodic_task/neat_periodic_task.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
+
+import '../model/io/OnlineUser.dart';
 
 class ChatNotifier with ChangeNotifier {
   EventStatus status = EventStatus.INITIAL;
@@ -13,6 +15,7 @@ class ChatNotifier with ChangeNotifier {
   String username = "";
   int avatarId = 2;
   List<Message> chats = [];
+  List<OnlineUser> onlineUsers = [];
 
   Future<void> init(String username, int avatarId) async {
     this.username = username;
@@ -23,9 +26,12 @@ class ChatNotifier with ChangeNotifier {
           config: StompConfig(
               url: 'ws://192.168.8.100:8080/websocket',
               onConnect: (_) {
-                client!.send(destination: '/app/join', body: jsonEncode({
-                  "username": username
-                }));
+                client!.send(
+                    destination: '/app/join',
+                    body: jsonEncode({
+                      "username": username,
+                      "avatarId": avatarId
+                    }));
 
                 client!.subscribe(
                     destination: '/topic/chat',
@@ -42,7 +48,7 @@ class ChatNotifier with ChangeNotifier {
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();
-                      } catch(_){}
+                      } catch (_) {}
                     });
 
                 client!.subscribe(
@@ -60,7 +66,7 @@ class ChatNotifier with ChangeNotifier {
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();
-                      } catch(_){}
+                      } catch (_) {}
                     });
 
                 client!.subscribe(
@@ -69,7 +75,7 @@ class ChatNotifier with ChangeNotifier {
                     callback: (frame) async {
                       try {
                         final user = jsonDecode(frame.body.toString());
-                        final model = User.fromJson(user);
+                        final model = OnlineUser.fromJson(user);
                         // if(model.username==username) {
                         //   status = EventStatus.JOINED;
                         //   notifyListeners();
@@ -78,7 +84,22 @@ class ChatNotifier with ChangeNotifier {
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();
-                      } catch(_){}
+                      } catch (_) {}
+                    });
+
+                client!.subscribe(
+                    destination: '/topic/online',
+                    headers: {},
+                    callback: (frame) async {
+                      try {
+                        onlineUsers.clear();
+                        frame.body.toString().split('|').forEach((element) {
+                          onlineUsers
+                              .add(OnlineUser.fromJson(jsonDecode(element)));
+                        });
+                        notifyListeners();
+                        print(frame.body.toString());
+                      } catch (_) {}
                     });
               },
               onStompError: (_) {
@@ -101,11 +122,8 @@ class ChatNotifier with ChangeNotifier {
   Future<void> sendMessage(String msg) async {
     client!.send(
         destination: '/app/chat',
-        body: jsonEncode({
-          "username": username,
-          "avatarId": avatarId,
-          "message": msg
-        }),
+        body: jsonEncode(
+            {"username": username, "avatarId": avatarId, "message": msg}),
         headers: {});
   }
 
@@ -118,5 +136,9 @@ class ChatNotifier with ChangeNotifier {
           "stickerId": stickerId
         }),
         headers: {});
+  }
+
+  Future<void> checkOnlineUsers() async {
+    client!.send(destination: '/app/online', body: username, headers: {});
   }
 }

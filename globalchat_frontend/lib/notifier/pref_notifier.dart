@@ -12,6 +12,9 @@ class PrefNotifier with ChangeNotifier {
   String _password = "";
   int _avatarId = 1;
   String _token = "";
+  int _coins = 0;
+  int _exp = 0;
+  int _level = 0;
   String _avatars = "";
   String _items = "";
   bool isDark = false;
@@ -24,6 +27,9 @@ class PrefNotifier with ChangeNotifier {
   String get email => _email;
   String get password => _password;
   int get avatarId => _avatarId;
+  int get coins => _coins;
+  int get exp => _exp;
+  int get level => _level;
   String get avatars => _avatars;
   String get items => _items;
   String get token => _token;
@@ -34,6 +40,9 @@ class PrefNotifier with ChangeNotifier {
     _email = _pref!.getString(Constants.PREF_EMAIL) ?? "";
     _password = _pref!.getString(Constants.PREF_PASSWORD) ?? "";
     _avatarId = _pref!.getInt(Constants.PREF_AVATAR_ID) ?? 2;
+    _coins = _pref!.getInt(Constants.PREF_COINS) ?? 0;
+    _exp = _pref!.getInt(Constants.PREF_EXP) ?? 0;
+    _level = _pref!.getInt(Constants.PREF_LEVEL) ?? 0;
     _avatars = _pref!.getString(Constants.PREF_AVATARS) ?? "";
     _items = _pref!.getString(Constants.PREF_ITEMS) ?? "";
     _token = _pref!.getString(Constants.PREF_TOKEN) ?? "";
@@ -51,6 +60,9 @@ class PrefNotifier with ChangeNotifier {
       String email,
       String password,
       int avatarId,
+      int coins,
+      int exp,
+      int level,
       String avatars,
       String items,
       String token
@@ -59,9 +71,13 @@ class PrefNotifier with ChangeNotifier {
     await _setEmail(email);
     await _setPassword(password);
     await _setAvatarId(avatarId);
+    await _setCoins(coins);
+    await _setExp(exp);
+    await _setLevel(level);
     await _setAvatars(avatars);
     await _setItems(items);
     await _setToken(token);
+    print('$_username, $_email, $_password, $_avatarId');
     _status = FetchStatus.SUCCESS;
     return;
   }
@@ -89,6 +105,21 @@ class PrefNotifier with ChangeNotifier {
   Future<void> _setAvatarId(int avatar) async {
     _pref!.setInt(Constants.PREF_AVATAR_ID, avatar);
     _avatarId = _pref!.getInt(Constants.PREF_AVATAR_ID) ?? 1;
+  }
+
+  Future<void> _setCoins(int coins) async {
+    _pref!.setInt(Constants.PREF_COINS, coins);
+    _coins = _pref!.getInt(Constants.PREF_COINS) ?? 1;
+  }
+
+  Future<void> _setExp(int exp) async {
+    _pref!.setInt(Constants.PREF_EXP, exp);
+    _exp = _pref!.getInt(Constants.PREF_EXP) ?? 1;
+  }
+
+  Future<void> _setLevel(int level) async {
+    _pref!.setInt(Constants.PREF_LEVEL, level);
+    _level = _pref!.getInt(Constants.PREF_LEVEL) ?? 1;
   }
 
   Future<void> _setAvatars(String avatars) async {

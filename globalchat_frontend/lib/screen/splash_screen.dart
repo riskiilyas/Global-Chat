@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/notifier/login_with_token_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../util/routes.dart';
@@ -21,7 +23,25 @@ class _MyHomePageState extends State<SplashScreen> {
       var token = context.read<PrefNotifier>().token;
       Future.delayed(const Duration(seconds: 2), () {
         if (token.isNotEmpty) {
-          Navigator.pushReplacementNamed(context, Routes.HOME);
+          print(token);
+          context.read<LoginWithTokenNotifier>().fetch(token).then((value) {
+            if (value != null) {
+              context.prefNotifier.addUser(
+                  value.username,
+                  value.email,
+                  context.prefNotifier.password,
+                  value.avatarId,
+                  value.coins,
+                  value.exp,
+                  value.level,
+                  value.avatars,
+                  value.items,
+                  token);
+              Navigator.pushReplacementNamed(context, Routes.HOME);
+            } else {
+              Navigator.pushReplacementNamed(context, Routes.WELCOME);
+            }
+          });
         } else {
           Navigator.pushReplacementNamed(context, Routes.WELCOME);
         }

@@ -167,14 +167,14 @@ class _ProfilPageState extends State<ProfilPage>
                               Icons.account_circle,
                               color: Colors.white,
                             ),
-                            text: "Avatars",
+                            // text: "Avatars",
                           ),
                           Tab(
                             icon: Icon(
                               Icons.diamond,
                               color: Colors.white,
                             ),
-                            text: "Items",
+                            // text: "Items",
                           ),
                         ],
                       ),

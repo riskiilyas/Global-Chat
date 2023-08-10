@@ -31,8 +31,17 @@ class _MyHomePageState extends State<LoginScreen> {
       if (status == FetchStatus.SUCCESS) {
         var data = context.read<LoginNotifier>().loginData!;
         ServiceLocator.prefs.then((pref) {
-          context.read<PrefNotifier>().addUser(data.username, data.email,
-              password, data.avatarId, data.avatars, data.items, data.token);
+          context.read<PrefNotifier>().addUser(
+              data.username,
+              data.email,
+              password,
+              data.avatarId,
+              data.coins,
+              data.exp,
+              data.level,
+              data.avatars,
+              data.items,
+              data.token);
           context.read<LoginNotifier>().init();
           context.showSnackbar("Selamat datang ${data.username}!");
           Navigator.pushNamedAndRemoveUntil(
