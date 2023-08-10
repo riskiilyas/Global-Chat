@@ -30,8 +30,6 @@ class SecurityConfig (
             .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html").permitAll()
             .requestMatchers(HttpMethod.GET, "/swagger-ui").permitAll()
             .requestMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
-            .requestMatchers(HttpMethod.GET, "/websocket/topic/greetings").permitAll()
-            .requestMatchers(HttpMethod.GET, "/websocket/hello").permitAll()
             .requestMatchers(HttpMethod.GET, "/websocket").permitAll()
             .requestMatchers("/**").authenticated()
             .anyRequest().permitAll() // In case you have a frontend
