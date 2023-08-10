@@ -22,51 +22,57 @@ class UserChatWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Styles.COLOR_TEXT_BACKGROUND),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      onUserClicked(username);
-                    },
-                    child: CircleAvatar(
-                        foregroundImage:
-                            Image.asset("assets/avatars/$avatar.png").image),
+        Wrap(
+          alignment: WrapAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              fit: StackFit.passthrough,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Styles.COLOR_TEXT_BACKGROUND),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            time,
+                            style: TextStyle(color: Styles.COLOR_HINT_TEXT),
+                          ),
+                          Text(
+                            username,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Styles.COLOR_TEXT),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        msg,
+                        maxLines: 10,
+                        style: TextStyle(
+                            color: Styles.COLOR_TEXT),
+                      ),
+                      const SizedBox(height: 12,)
+                    ],
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
-                    child: Text(
-                      username,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Styles.COLOR_TEXT),
-                    ),
-                  ),
-                  Text(
-                    time,
-                    style: TextStyle(color: Styles.COLOR_HINT_TEXT),
-                    textAlign: TextAlign.end,
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                msg,
-                maxLines: 10,
-              ),
-            ],
-          ),
+                ),
+                Positioned(bottom: -8,left: -5,child: CircleAvatar(
+                    radius: 12,
+                    foregroundImage:
+                    Image.asset("assets/avatars/$avatar.png").image),)
+              ],
+            ),
+            const SizedBox(width: double.infinity,)
+          ],
         ),
         const SizedBox(
           height: 8,

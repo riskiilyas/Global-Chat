@@ -85,6 +85,7 @@ class _ChatPageState extends State<ChatPage> {
                     controller: controller,
                     minLines: 1,
                     maxLines: 5,
+                    style: TextStyle(color: Styles.COLOR_TEXT),
                     onChanged: (_) => name= _,
                     decoration: InputDecoration(
                       filled: true,

@@ -11,13 +11,14 @@ class UserJoinedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Divider(),
         Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Styles.COLOR_TEXT_BACKGROUND,
                 borderRadius: BorderRadius.circular(16)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Wrap(
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   user,

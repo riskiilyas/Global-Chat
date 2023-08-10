@@ -42,7 +42,9 @@ class _MainAppBarState extends State<MainAppBar> {
             ),
             onPressed: () {
               context.read<ChatNotifier>().checkOnlineUsers();
-              Dialogs.showOnlineUsers(context);
+              if(context.read<ChatNotifier>().onlineUsers.isNotEmpty) {
+                Dialogs.showOnlineUsers(context);
+              }
             }),
         PopupMenuButton(
             // add icon, by default "3 dot" icon
