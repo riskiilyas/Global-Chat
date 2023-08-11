@@ -80,6 +80,7 @@ flutter:
      - assets/
      - assets/imgs/
      - assets/avatars/
+     - assets/stickers/
      - assets/lang/
      - .env
 

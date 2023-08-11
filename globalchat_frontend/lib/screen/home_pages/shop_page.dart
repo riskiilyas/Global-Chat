@@ -32,9 +32,12 @@ class _ProfilPageState extends State<ShopPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            "assets/imgs/maintenance.png",
-            height: 180,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(32),
+            child: Image.asset(
+              "assets/stickers/1.gif",
+              height: 120,
+            ),
           ),
           const SizedBox(
             height: 12,

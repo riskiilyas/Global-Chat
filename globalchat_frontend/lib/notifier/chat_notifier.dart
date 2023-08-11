@@ -50,11 +50,6 @@ class ChatNotifier with ChangeNotifier {
                       try {
                         final chat = jsonDecode(frame.body.toString());
                         final model = Chat.fromJson(chat);
-                        // if(model.username==username) {
-                        //   status = EventStatus.SENT_CHAT;
-                        //   notifyListeners();
-                        //   return;
-                        // }
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();
@@ -68,11 +63,6 @@ class ChatNotifier with ChangeNotifier {
                       try {
                         final chat = jsonDecode(frame.body.toString());
                         final model = Sticker.fromJson(chat);
-                        // if(model.username==username) {
-                        //   status = EventStatus.SENT_STICKER;
-                        //   notifyListeners();
-                        //   return;
-                        // }
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();
@@ -86,11 +76,6 @@ class ChatNotifier with ChangeNotifier {
                       try {
                         final user = jsonDecode(frame.body.toString());
                         final model = OnlineUser.fromJson(user);
-                        // if(model.username==username) {
-                        //   status = EventStatus.JOINED;
-                        //   notifyListeners();
-                        //   return;
-                        // }
                         chats.add(model);
                         status = EventStatus.INITIAL;
                         notifyListeners();

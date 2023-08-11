@@ -29,6 +29,13 @@ class WebSocketController(
         return msg;
     }
 
+    @MessageMapping("/sticker")
+    @SendTo("/topic/sticker")
+    fun sendSticker(msg: String): String? {
+        println(msg)
+        return msg;
+    }
+
     @MessageMapping("/join")
     @SendTo("/topic/join")
     fun userJoin(msg: String, headerAccessor: SimpMessageHeaderAccessor): String? {

@@ -13,8 +13,8 @@ import '../notifier/theme_notifier.dart';
 import 'dev.dart';
 
 class Dialogs {
-  static Future<void> showMyDialog(
-      BuildContext context, String message, Function(bool) callback) async {
+  static Future<void> showMyDialog(BuildContext context, String message,
+      Function(bool) callback) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -132,8 +132,8 @@ class Dialogs {
                     Expanded(
                       child: GridView.builder(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4),
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4),
                         itemCount: 27,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
@@ -143,13 +143,82 @@ class Dialogs {
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: CircleAvatar(
-                                foregroundImage: Image.asset(
-                                        "assets/avatars/${index + 1}.png")
+                                foregroundImage: Image
+                                    .asset(
+                                    "assets/avatars/${index + 1}.png")
                                     .image,
                               ),
                             ),
                           );
                         },
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  static Future<int?> showStickerPicker(BuildContext context) async {
+    return showDialog<int?>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Material(
+            color: Colors.transparent,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  height: 400,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Styles.COLOR_BACKGROUND),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Choose Sticker",
+                          style: TextStyle(
+                              color: Styles.COLOR_TEXT,
+                              fontSize: 16,
+                              fontFamily: 'GrilledCheese',
+                              fontWeight: FontWeight.normal),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.cancel_outlined,
+                            size: 32,
+                            color: Styles.COLOR_MAIN_TEXT,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                          gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4),
+                          itemCount: 20,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context, index + 1);
+                              },
+                              child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Image.asset(
+                                      "assets/stickers/${index + 1}.gif")
+                              ),
+                            );
+                          }
                       ),
                     ),
                   ]),
@@ -178,131 +247,143 @@ class Dialogs {
                         color: Styles.COLOR_BACKGROUND),
                     child: Expanded(
                         child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Settings",
-                              style: TextStyle(
-                                  color: Styles.COLOR_TEXT,
-                                  fontSize: 16,
-                                  fontFamily: 'GrilledCheese',
-                                  fontWeight: FontWeight.normal),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Settings",
+                                  style: TextStyle(
+                                      color: Styles.COLOR_TEXT,
+                                      fontSize: 16,
+                                      fontFamily: 'GrilledCheese',
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.cancel_outlined,
+                                    size: 32,
+                                    color: Styles.COLOR_MAIN_TEXT,
+                                  ),
+                                ),
+                              ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.cancel_outlined,
-                                size: 32,
-                                color: Styles.COLOR_MAIN_TEXT,
+                            Expanded(
+                              child: ListView(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Dark Theme",
+                                        style: TextStyle(
+                                            color: Styles.COLOR_TEXT),
+                                      ),
+                                      Switch(
+                                          value:
+                                          context
+                                              .watch<ThemeNotifier>()
+                                              .isDark,
+                                          onChanged: (_) {
+                                            context
+                                                .read<ThemeNotifier>()
+                                                .switchTheme();
+                                          })
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Language",
+                                        style: TextStyle(
+                                            color: Styles.COLOR_TEXT),
+                                      ),
+                                      DropdownButton(
+                                          dropdownColor: Styles
+                                              .COLOR_BACKGROUND,
+                                          style: TextStyle(
+                                              color: Styles.COLOR_TEXT),
+                                          value: "en",
+                                          items: [
+                                            DropdownMenuItem(value: "id",
+                                                child: Text("Bahasa 🇮🇩", style:
+                                                TextStyle(color: Styles
+                                                    .COLOR_TEXT),)),
+                                            DropdownMenuItem(value: "en",
+                                                child: Text(
+                                                  "English 🇬🇧", style: TextStyle
+                                                  (color: Styles.COLOR_TEXT),)),
+                                          ],
+                                          onChanged: (_) {}),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Edit Profile",
+                                        style: TextStyle(
+                                            color: Styles.COLOR_TEXT),
+                                      ),
+                                      FloatingActionButton.extended(
+                                        label: const Icon(
+                                          // <-- Icon
+                                          Icons.edit_rounded,
+                                        ), // <-- Text
+                                        backgroundColor: Styles.COLOR_MAIN,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.EDIT_PROFILE);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Logout",
+                                        style: TextStyle(
+                                            color: Styles.COLOR_TEXT),
+                                      ),
+                                      FloatingActionButton.extended(
+                                        label: const Icon(
+                                          // <-- Icon
+                                          Icons.exit_to_app,
+                                        ), // <-- Text
+                                        backgroundColor: Styles.COLOR_MAIN,
+                                        onPressed: () async {
+                                          context.read<PrefNotifier>().clear();
+                                          context.read<ThemeNotifier>().clear();
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              Routes.ROOT, (route) => false);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Dark Theme",
-                                    style: TextStyle(color: Styles.COLOR_TEXT),
-                                  ),
-                                  Switch(
-                                      value:
-                                          context.watch<ThemeNotifier>().isDark,
-                                      onChanged: (_) {
-                                        context
-                                            .read<ThemeNotifier>()
-                                            .switchTheme();
-                                      })
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Language",
-                                    style: TextStyle(color: Styles.COLOR_TEXT),
-                                  ),
-                                  DropdownButton(
-                                    dropdownColor: Styles.COLOR_BACKGROUND,
-                                      style: TextStyle(color: Styles.COLOR_TEXT),
-                                      value: "en",
-                                      items: [
-                                        DropdownMenuItem(value: "id", child: Text("Bahasa 🇮🇩", style:
-                                        TextStyle(color: Styles.COLOR_TEXT),)),
-                                        DropdownMenuItem(value: "en", child: Text("English 🇬🇧", style: TextStyle
-                                          (color: Styles.COLOR_TEXT),)),
-                                      ],
-                                      onChanged: (_) {
-                                      }),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Edit Profile",
-                                    style: TextStyle(color: Styles.COLOR_TEXT),
-                                  ),
-                                  FloatingActionButton.extended(
-                                    label: const Icon(
-                                      // <-- Icon
-                                      Icons.edit_rounded,
-                                    ), // <-- Text
-                                    backgroundColor: Styles.COLOR_MAIN,
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, Routes.EDIT_PROFILE);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Logout",
-                                    style: TextStyle(color: Styles.COLOR_TEXT),
-                                  ),
-                                  FloatingActionButton.extended(
-                                    label: const Icon(
-                                      // <-- Icon
-                                      Icons.exit_to_app,
-                                    ), // <-- Text
-                                    backgroundColor: Styles.COLOR_MAIN,
-                                    onPressed: () async {
-                                      context.read<PrefNotifier>().clear();
-                                      context.read<ThemeNotifier>().clear();
-                                      Navigator.pushNamedAndRemoveUntil(context,
-                                          Routes.ROOT, (route) => false);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ))),
+                        ))),
               ),
             ),
           );
@@ -327,42 +408,43 @@ class Dialogs {
                         color: Styles.COLOR_BACKGROUND_2),
                     child: Expanded(
                         child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "About",
-                              style: TextStyle(
-                                  color: Styles.COLOR_TEXT,
-                                  fontSize: 16,
-                                  fontFamily: 'GrilledCheese',
-                                  fontWeight: FontWeight.normal),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "About",
+                                  style: TextStyle(
+                                      color: Styles.COLOR_TEXT,
+                                      fontSize: 16,
+                                      fontFamily: 'GrilledCheese',
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.cancel_outlined,
+                                    size: 32,
+                                    color: Styles.COLOR_MAIN_TEXT,
+                                  ),
+                                ),
+                              ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.cancel_outlined,
-                                size: 32,
-                                color: Styles.COLOR_MAIN_TEXT,
+                            Expanded(
+                              child: ListView(
+                                children: [
+                                  Text(
+                                    Dev.LOREM + Dev.LOREM + Dev.LOREM +
+                                        Dev.LOREM,
+                                    style: TextStyle(color: Styles.COLOR_TEXT),
+                                  )
+                                ],
                               ),
                             ),
                           ],
-                        ),
-                        Expanded(
-                          child: ListView(
-                            children: [
-                              Text(
-                                Dev.LOREM + Dev.LOREM + Dev.LOREM + Dev.LOREM,
-                                style: TextStyle(color: Styles.COLOR_TEXT),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ))),
+                        ))),
               ),
             ),
           );
@@ -412,13 +494,19 @@ class Dialogs {
                   Expanded(
                       child: ListView(
                           children: List.generate(
-                              context.read<ChatNotifier>().onlineUsers.length,
-                              (index) => UserItem(
-                                  avatarId: context.read<ChatNotifier>()
-                                      .onlineUsers[index].avatarId,
-                                  username: context.read<ChatNotifier>()
-                                      .onlineUsers[index].username,
-                                  onClicked: (_) {})))),
+                              context
+                                  .read<ChatNotifier>()
+                                  .onlineUsers
+                                  .length,
+                                  (index) =>
+                                  UserItem(
+                                      avatarId: context
+                                          .read<ChatNotifier>()
+                                          .onlineUsers[index].avatarId,
+                                      username: context
+                                          .read<ChatNotifier>()
+                                          .onlineUsers[index].username,
+                                      onClicked: (_) {})))),
                 ]),
               ),
             ),

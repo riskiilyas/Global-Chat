@@ -6,9 +6,12 @@ import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
 import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:globalchat_flutter/widget/arrow_down_button.dart';
+import 'package:globalchat_flutter/widget/me_sticker_item.dart';
 import 'package:globalchat_flutter/widget/user_chat_widget.dart';
 import 'package:globalchat_flutter/widget/user_joined_widget.dart';
+import 'package:globalchat_flutter/widget/user_sticker_item.dart';
 import 'package:provider/provider.dart';
+import '../../util/dialogs.dart';
 import '../../util/event_status.dart';
 import '../../util/styles.dart';
 import '../../widget/me_chat_widget.dart';
@@ -66,10 +69,10 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
                 child: Stack(
               children: [
-                SingleChildScrollView(
+                ListView.builder(
                     controller: _controller,
-                    child: Column(
-                      children: List.generate(msg.length, (index) {
+                    itemCount: msg.length,
+                    itemBuilder: (context, index) {
                         final username = context.prefNotifier.username;
                         if (msg[index] is Chat) {
                           final _ = msg[index] as Chat;
@@ -92,14 +95,20 @@ class _ChatPageState extends State<ChatPage> {
                           return UserJoinedWidget(user: _.username);
                         } else if (msg[index] is Sticker) {
                           final _ = msg[index] as Sticker;
-                          return const SizedBox();
+                          if (_.username == username) {
+                            return MeStickerItem(username: _.username,
+                                avatarId: _.avatarId, stickerId: _.stickerId);
+                          } else {
+                            return UserStickerItem(username: _.username,
+                                avatarId: _.avatarId, stickerId: _.stickerId);
+                          }
                         } else {
                           return const SizedBox();
                         }
                       }),
-                    )),
                 Positioned(
-                    bottom: 10,right: 0,
+                    bottom: 10,
+                    right: 0,
                     child: ArrowDownButton(controller: _controller)),
               ],
             )),
@@ -127,6 +136,33 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                       hintText: 'Tuliskan Pesan Anda....',
                     ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                InkWell(
+                  onTap: () {
+                    Dialogs.showStickerPicker(context).then((value) {
+                      if (value != null) {
+                        context.read<ChatNotifier>().sendSticker(value);
+                      }
+                    });
+                  },
+                  child: Material(
+                    elevation: 10,
+                    borderRadius: const BorderRadius.all(Radius.circular(32)),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Styles.COLOR_MAIN,
+                            borderRadius: BorderRadius.circular(64)),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.emoji_emotions,
+                            color: Colors.white,
+                          ),
+                        )),
                   ),
                 ),
                 const SizedBox(
