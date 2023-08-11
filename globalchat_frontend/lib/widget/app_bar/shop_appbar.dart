@@ -49,23 +49,24 @@ class _ShopAppBarState extends State<ShopAppBar> {
         PopupMenuButton(
           // add icon, by default "3 dot" icon
           // icon: Icon(Icons.book)
+          color: Styles.COLOR_BACKGROUND,
             icon: const Icon(
               Icons.settings,
               color: Colors.white,
             ),
             itemBuilder: (context) {
               return [
-                const PopupMenuItem<int>(
+                 PopupMenuItem<int>(
                   value: 0,
-                  child: Text("Settings"),
+                  child: Text("Settings", style: TextStyle(color: Styles.COLOR_TEXT),),
                 ),
-                const PopupMenuItem<int>(
+                 PopupMenuItem<int>(
                   value: 1,
-                  child: Text("About"),
+                  child: Text("About", style: TextStyle(color: Styles.COLOR_TEXT),),
                 ),
-                const PopupMenuItem<int>(
+                PopupMenuItem<int>(
                   value: 2,
-                  child: Text("Exit"),
+                  child: Text("Exit", style: TextStyle(color: Styles.COLOR_TEXT),),
                 ),
               ];
             },

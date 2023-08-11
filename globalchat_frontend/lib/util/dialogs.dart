@@ -235,9 +235,15 @@ class Dialogs {
                                     style: TextStyle(color: Styles.COLOR_TEXT),
                                   ),
                                   DropdownButton(
+                                    dropdownColor: Styles.COLOR_BACKGROUND,
                                       style: TextStyle(color: Styles.COLOR_TEXT),
                                       value: "en",
-                                      items: dropdownLokasi,
+                                      items: [
+                                        DropdownMenuItem(value: "id", child: Text("Bahasa 🇮🇩", style:
+                                        TextStyle(color: Styles.COLOR_TEXT),)),
+                                        DropdownMenuItem(value: "en", child: Text("English 🇬🇧", style: TextStyle
+                                          (color: Styles.COLOR_TEXT),)),
+                                      ],
                                       onChanged: (_) {
                                       }),
                                 ],
@@ -421,9 +427,4 @@ class Dialogs {
       },
     );
   }
-
-  static List<DropdownMenuItem<String>> dropdownLokasi = [
-      const DropdownMenuItem(value: "id", child: Text("Bahasa 🇮🇩")),
-      const DropdownMenuItem(value: "en", child: Text("English 🇬🇧")),
-    ];
 }
