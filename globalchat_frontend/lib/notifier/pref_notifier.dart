@@ -79,26 +79,14 @@ class PrefNotifier with ChangeNotifier {
     await _setAvatars(avatars);
     await _setItems(items);
     await _setToken(token);
-    print('$_username, $_email, $_password, $_avatarId');
     _status = FetchStatus.SUCCESS;
     return;
   }
 
-  // Future<bool> updateProfile(token, username, avatarId) async {
-  //   _status = FetchStatus.LOADING;
-  //   try {
-  //     var response = await network.loginWithToken(token);
-  //     if(response.status>=400) throw Exception(response.message);
-  //
-  //     _status = FetchStatus.SUCCESS;
-  //     loginData = response.data;
-  //     return true;
-  //   } catch (e) {
-  //     _status = FetchStatus.ERROR;
-  //     error = e.toString();
-  //     return false;
-  //   }
-  // }
+  Future<void> updateProfile(username, avatarId) async {
+    await _setUsername(username);
+    await _setAvatarId(avatarId);
+  }
 
   Future<void> clearUser() async {
     await _pref!.clear();

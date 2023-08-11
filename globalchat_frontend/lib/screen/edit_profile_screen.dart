@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/notifier/update_profile_notifier.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:globalchat_flutter/widget/page_title.dart';
 import 'package:provider/provider.dart';
 
 import '../util/dialogs.dart';
 import '../util/fetch_status.dart';
+import '../util/routes.dart';
 import '../util/styles.dart';
 import '../widget/custom_button.dart';
 import '../widget/custom_text_field.dart';
@@ -21,20 +25,18 @@ class _MyHomePageState extends State<EditProfileScreen> {
   String username = "";
   FetchStatus status = FetchStatus.INITIAL;
   int avatar = 2;
+  final controller = TextEditingController();
 
   void init() async {
     context.watch<ThemeNotifier>();
-    // status = context.read<RegisterNotifier>().status;
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   if (status == FetchStatus.SUCCESS) {
-    //     context.read<RegisterNotifier>().init();
-    //     Constants.showSnackbar(context, "Successfully Registered!");
-    //     Navigator.pushReplacementNamed(context, Routes.WELCOME);
-    //   } else if (status == FetchStatus.ERROR) {
-    //     context.read<RegisterNotifier>().init();
-    //     Constants.showSnackbar(context, context.read<RegisterNotifier>().error);
-    //   }
-    // });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    username = context.prefNotifier.username;
+    avatar = context.prefNotifier.avatarId;
+    controller.text = username;
   }
 
   @override
@@ -92,11 +94,15 @@ class _MyHomePageState extends State<EditProfileScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                CustomTextField(
-                  hint: "Username",
-                  icon: Icons.person,
-                  callback: (_) => username = _,
-                ),
+                TextField(
+                  controller: controller,
+                    onChanged: (_)=>username=_,
+                    style: TextStyle(color: Styles.COLOR_TEXT),
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: Styles.COLOR_HINT_TEXT),
+                        prefixIcon: const Icon(Icons.person),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Styles.COLOR_MAIN)))),
                 const SizedBox(
                   height: 8,
                 ),
@@ -109,8 +115,35 @@ class _MyHomePageState extends State<EditProfileScreen> {
                         textColor: Colors.white,
                         buttonColor: Styles.COLOR_MAIN,
                         onPressed: () {
-                          if(username.isNotEmpty) {
-
+                          if (username.isNotEmpty) {
+                            context
+                                .read<UpdateProfileNotifier>()
+                                .updateProfile(context.prefNotifier.token,
+                                    username, avatar)
+                                .then((value) {
+                              if (value) {
+                                final username = context
+                                    .read<UpdateProfileNotifier>()
+                                    .loginData!
+                                    .username;
+                                final avatarId = context
+                                    .read<UpdateProfileNotifier>()
+                                    .loginData!
+                                    .avatarId;
+                                context.prefNotifier
+                                    .updateProfile(username, avatarId);
+                                context
+                                    .read<ChatNotifier>()
+                                    .changeProfile(username, avatarId);
+                                context.popTo(Routes.HOME);
+                                context.showSnackbar("Profile Updated!");
+                              } else {
+                                context.showSnackbar(context
+                                    .read<UpdateProfileNotifier>().error);
+                              }
+                            });
+                          } else {
+                            context.showSnackbar("Please Fill in the Username First!");
                           }
                         })
                     : SpinKitFadingCircle(

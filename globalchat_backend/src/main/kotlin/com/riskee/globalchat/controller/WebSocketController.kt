@@ -41,6 +41,18 @@ class WebSocketController(
         return null
     }
 
+    @MessageMapping("/update-profile")
+    @SendTo("/topic/join")
+    fun userUpdate(msg: String, headerAccessor: SimpMessageHeaderAccessor): String? {
+        val sessionId = headerAccessor.sessionId
+        sessionId?.apply {
+            println("id: $sessionId | uname: $msg")
+            onlineUsers[sessionId] = msg
+            return msg;
+        }
+        return null
+    }
+
     @MessageMapping("/online")
     @SendTo("/topic/online")
     fun usersOnline(msg: String): String? {

@@ -17,6 +17,16 @@ class ChatNotifier with ChangeNotifier {
   List<Message> chats = [];
   List<OnlineUser> onlineUsers = [];
 
+  Future<void> changeProfile(username, avatarId) async {
+    client!.send(destination: '/app/update-profile',
+        body: jsonEncode({
+          "username": username,
+          "avatarId": avatarId
+        }));
+    this.username = username;
+    this.avatarId = avatarId;
+  }
+
   Future<void> init(String username, int avatarId) async {
     this.username = username;
     this.avatarId = avatarId;

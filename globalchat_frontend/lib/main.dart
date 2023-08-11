@@ -5,6 +5,7 @@ import 'package:globalchat_flutter/notifier/chat_notifier.dart';
 import 'package:globalchat_flutter/notifier/login_with_token_notifier.dart';
 import 'package:globalchat_flutter/notifier/pref_notifier.dart';
 import 'package:globalchat_flutter/notifier/theme_notifier.dart';
+import 'package:globalchat_flutter/notifier/update_profile_notifier.dart';
 import 'package:globalchat_flutter/util/app_localization.dart';
 import 'package:globalchat_flutter/util/constants.dart';
 import 'package:globalchat_flutter/util/routes.dart';
@@ -21,6 +22,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => RegisterNotifier()),
     ChangeNotifierProvider(create: (_) => LoginNotifier()),
     ChangeNotifierProvider(create: (_) => LoginWithTokenNotifier()),
+    ChangeNotifierProvider(create: (_) => UpdateProfileNotifier()),
     ChangeNotifierProvider(create: (_) => PrefNotifier()),
     ChangeNotifierProvider(create: (_) => ChatNotifier()),
     ChangeNotifierProvider(create: (_) => ThemeNotifier()),
