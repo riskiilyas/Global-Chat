@@ -53,3 +53,13 @@ extension Notifier on BuildContext {
     return AppLocalization.of(this).getTranslate(key).toString();
   }
 }
+
+extension ItemUtil on String {
+  int itemLength() {
+    return split(",").length;
+  }
+
+  List<int> toListItems() {
+    return split(",").map((e) => int.parse(e)).toList();
+  }
+}

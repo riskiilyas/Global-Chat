@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/util/extensions.dart';
 import 'package:provider/provider.dart';
 
 import '../../notifier/theme_notifier.dart';
@@ -64,14 +65,14 @@ class _ProfilPageState extends State<ProfilPage>
                       SizedBox(
                           width: 80,
                           child: Image.asset(
-                            "assets/avatars/2.png",
+                            "assets/avatars/${context.prefNotifier.avatarId}.png",
                             fit: BoxFit.fill,
                           )),
                       const SizedBox(
                         height: 8,
                       ),
                       Text(
-                        "riski1351",
+                        context.prefNotifier.username,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -83,7 +84,7 @@ class _ProfilPageState extends State<ProfilPage>
                         height: 4,
                       ),
                       Text(
-                        'riskiilyas@gmail.com',
+                        context.prefNotifier.email,
                         style: TextStyle(
                             color: Styles.COLOR_TEXT,
                             fontSize: 10,
@@ -96,7 +97,7 @@ class _ProfilPageState extends State<ProfilPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Lvl. 14",
+                            "Lvl. ${context.prefNotifier.level}",
                             style: TextStyle(
                                 color: Styles.COLOR_TEXT,
                                 fontWeight: FontWeight.bold),
@@ -104,7 +105,7 @@ class _ProfilPageState extends State<ProfilPage>
                           Row(
                             children: [
                               Text(
-                                "19023",
+                                context.prefNotifier.coins.toString(),
                                 style: TextStyle(color: Styles.COLOR_TEXT),
                               ),
                               const SizedBox(
@@ -113,7 +114,7 @@ class _ProfilPageState extends State<ProfilPage>
                               CircleAvatar(
                                 maxRadius: 12,
                                 foregroundImage: Image.asset(
-                                  "assets/coin.png",
+                                  "assets/imgs/coin.png",
                                   width: 4,
                                 ).image,
                               ),
@@ -124,12 +125,15 @@ class _ProfilPageState extends State<ProfilPage>
                       const SizedBox(
                         height: 12,
                       ),
-                      Text("Exp: 36/100", style: TextStyle(color: Styles.COLOR_TEXT),),
+                      Text("Exp: ${context.prefNotifier.exp}/100", style:
+                      TextStyle(color:
+                      Styles
+                          .COLOR_TEXT),),
                       const SizedBox(
                         height: 4,
                       ),
-                      const LinearProgressIndicator(
-                        value: .36,
+                      LinearProgressIndicator(
+                        value: context.prefNotifier.exp/100,
                       ),
                       const SizedBox(
                         height: 8,
@@ -204,7 +208,7 @@ class _ProfilPageState extends State<ProfilPage>
     pages.add(GridView.builder(
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-      itemCount: 27,
+      itemCount: context.prefNotifier.avatars.itemLength(),
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
@@ -222,7 +226,7 @@ class _ProfilPageState extends State<ProfilPage>
     pages.add(GridView.builder(
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-      itemCount: 10,
+      itemCount: context.prefNotifier.avatars.itemLength(),
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {

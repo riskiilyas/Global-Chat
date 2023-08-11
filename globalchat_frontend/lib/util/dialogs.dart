@@ -231,10 +231,15 @@ class Dialogs {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Language (ID 🇮🇩/ EN 🇬🇧)",
+                                    "Language",
                                     style: TextStyle(color: Styles.COLOR_TEXT),
                                   ),
-                                  Switch(value: false, onChanged: (_) {}),
+                                  DropdownButton(
+                                      style: TextStyle(color: Styles.COLOR_TEXT),
+                                      value: "en",
+                                      items: dropdownLokasi,
+                                      onChanged: (_) {
+                                      }),
                                 ],
                               ),
                               const SizedBox(
@@ -373,7 +378,7 @@ class Dialogs {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: Styles.COLOR_BACKGROUND_2),
+                    color: Styles.COLOR_BACKGROUND),
                 child: Column(children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -416,4 +421,9 @@ class Dialogs {
       },
     );
   }
+
+  static List<DropdownMenuItem<String>> dropdownLokasi = [
+      const DropdownMenuItem(value: "id", child: Text("Bahasa 🇮🇩")),
+      const DropdownMenuItem(value: "en", child: Text("English 🇬🇧")),
+    ];
 }

@@ -40,7 +40,7 @@ class _ShopAppBarState extends State<ShopAppBar> {
             CircleAvatar(
               maxRadius: 12,
               foregroundImage: Image.asset(
-                "assets/coin.png",
+                "assets/imgs/coin.png",
                 width: 4,
               ).image,
             ),

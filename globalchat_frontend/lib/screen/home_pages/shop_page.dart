@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:globalchat_flutter/util/constants.dart';
+import 'package:globalchat_flutter/util/styles.dart';
 import 'package:provider/provider.dart';
 
 import '../../notifier/theme_notifier.dart';
@@ -31,15 +33,16 @@ class _ProfilPageState extends State<ShopPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "assets/maintenance.png",
+            "assets/imgs/maintenance.png",
             height: 180,
           ),
           const SizedBox(
             height: 12,
           ),
-          const Text(
+          Text(
             "Coming Soon...",
             textAlign: TextAlign.center,
+            style: TextStyle(color: Styles.COLOR_TEXT),
           )
         ],
       ),
